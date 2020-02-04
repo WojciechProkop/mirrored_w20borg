@@ -1,3 +1,5 @@
+//C:/Electron folder
+
 const electron = require('electron');
 const url  = require('url');
 const path = require('path');
@@ -12,7 +14,7 @@ app.on('ready', function () {
     mainWindow = new BrowserWindow({});
     //load html into window
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainWindow.html'),
+        pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -21,7 +23,6 @@ app.on('ready', function () {
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     //Insert Menu
     Menu.setApplicationMenu(mainMenu);
-
 });
 
 //Create menu Template
