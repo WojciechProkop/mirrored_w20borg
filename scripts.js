@@ -4,37 +4,55 @@
 const deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
+
+
+//for move counter
+let moves = 0;
+let counter = document.querySelector(".moves");
 let blocked = false; // If false, user can flip. If true, user is locked out from playing
 randomize();
 
-//count matches
-let matchesMade = 0;
-//account for first flip
-let numMoves = 0;
+//initialize timer
+var sec = 0, min = 0;
+document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
 
+//count matches
+var matches = 0;
+let gameover = false;
 
 function flipCard()
 {
     if(blocked)return;
-    //starts timer on first flip
-    if (numMoves === 0){
+    
+    //timer start on first move
+    if (moves === 0){
         startTimer();
-    };
-    numMoves++;
+    }
+    moves++;
+    //end of timer
+    
     flips += 1;
     this.classList.toggle('flip');
     // If this is not the first click
     if(prevCard != null)
     {   // If the this card and the previous card share the same name remove the event
-        // listener functionality, disabling the card face up. 
+        // listener functionality, disabling the card face up.
         if(this.dataset.name === prevCard.dataset.name && prevCard != this)
         {
             this.removeEventListener('click', flipCard);
             prevCard.removeEventListener('click', flipCard);
             console.log("removed listeners");
-            matchesMade++;
+            matches++;
             prevCard = null
             flips = 0;
+
+            //IF ALL MATCHED
+            if (matches === 6){
+                gameover = true;
+                finalTime = document.getElementById("timer").innerHTML;
+                //document.getElementById("finTime").innerHTML = finalTime;
+            }
+
         }
     }
 
@@ -73,20 +91,105 @@ function randomize()
     })
 }
 
+// Add eventListener events to every card during initialization, and call flipCard() when clicked.
+deck.forEach(c =>c.addEventListener('click', flipCard));
+
+//Count the Players moves
+function moveCounter(){
+    moves++;
+    counter.innerHTML = moves;
+    //start timer on first click
+    if(moves == 1){
+        sec = 0;
+        min = 0;
+        startTimer(); //insert timer here
+    }
+}
+
+const nameList = [
+    'Time', 'Past', 'Future', 'Dev',
+    'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
+    'Fall', 'Jump', 'Cliff', 'Mountain', 'Rend', 'Red', 'Blue',
+    'Green', 'Yellow', 'Gold', 'Demon', 'Demonic', 'Panda', 'Cat',
+    'Kitty', 'Kitten', 'Zero', 'Memory', 'Trooper', 'XX', 'Bandit',
+    'Fear', 'Light', 'Glow', 'Tread', 'Deep', 'Deeper', 'Deepest',
+    'Mine', 'Your', 'Worst', 'Enemy', 'Hostile', 'Force', 'Video',
+    'Game', 'Donkey', 'Mule', 'Colt', 'Cult', 'Cultist', 'Magnum',
+    'Gun', 'Assault', 'Recon', 'Trap', 'Trapper', 'Redeem', 'Code',
+    'Script', 'Writer', 'Near', 'Close', 'Open', 'Cube', 'Circle',
+    'Geo', 'Genome', 'Germ', 'Spaz', 'Shot', 'Echo', 'Beta', 'Alpha',
+    'Gamma', 'Omega', 'Seal', 'Squid', 'Money', 'Cash', 'Lord', 'King',
+    'Duke', 'Rest', 'Fire', 'Flame', 'Morrow', 'Break', 'Breaker', 'Numb',
+    'Ice', 'Cold', 'Rotten', 'Sick', 'Sickly', 'Janitor', 'Camel', 'Rooster',
+    'Sand', 'Desert', 'Dessert', 'Hurdle', 'Racer', 'Eraser', 'Erase', 'Big',
+    'Small', 'Short', 'Tall', 'Sith', 'Bounty', 'Hunter', 'Cracked', 'Broken',
+    'Sad', 'Happy', 'Joy', 'Joyful', 'Crimson', 'Destiny', 'Deceit', 'Lies',
+    'Lie', 'Honest', 'Destined', 'Bloxxer', 'Hawk', 'Eagle', 'Hawker', 'Walker',
+    'Zombie', 'Sarge', 'Capt', 'Captain', 'Punch', 'One', 'Two', 'Uno', 'Slice',
+    'Slash', 'Melt', 'Melted', 'Melting', 'Fell', 'Wolf', 'Hound',
+    'Legacy', 'Sharp', 'Dead', 'Mew', 'Chuckle', 'Bubba', 'Bubble', 'Sandwich', 'Smasher', 'Extreme', 'Multi',
+    'Universe', 'Ultimate', 'Death', 'Ready', 'Monkey', 'Elevator', 'Wrench', 'Grease', 'Head', 'Theme',
+    'Grand', 'Cool', 'Kid', 'Boy', 'Girl', 'Vortex', 'Paradox'
+];
+
+let finalName = "";
+
+
+function generate(){
+    document.getElementById("nameplace").innerHTML = randName();
+}
+
+function randName(){
+    finalName = nameList[Math.floor( Math.random() * nameList.length )];
+    finalName += nameList[Math.floor( Math.random() * nameList.length )];
+    if ( Math.random() > 0.5 ) {
+        finalName += nameList[Math.floor( Math.random() * nameList.length )];
+    }
+    return finalName;
+};
+
 //timer
 function startTimer()
 {
-    var sec = 0, min = 0;
     var Countup = setInterval(function(){
         ++sec;
-        document.getElementById("timer").innerHTML = min+" min "+sec+" sec";
+        //document.getElementById("matches").innerHTML = "matches: "+matches;
+        document.getElementById("timer").innerHTML = "time: "+min+" min "+sec+" sec";
         //if all cards match
-        if (sec == 60){
+        if (sec == 59){
             min++;
-            sec = 0;
+            sec = -1;
+        }
+        if (gameover == true){
+            document.getElementById("timer").innerHTML = finalTime;
         }
     },1000)
 }
 
-// Add eventListener events to every card during initialization, and call flipCard() when clicked.
-deck.forEach(c =>c.addEventListener('click', flipCard));
+// resets the game board
+function reset() {
+    //if (flips > 0) return; // doesn't quite fix a mid-flip reset
+ 
+    // block while reseting
+    blocked = true;
+    flips = 0;
+    prevCard = null;
+    blocked = false;
+ 
+    // flips all cards facedown
+    deck.forEach(c => c.classList.toggle('flip', false));
+ 
+    // reapply event listener to disabled (or all) cards
+    deck.forEach(c => c.addEventListener('click', flipCard));
+ 
+    // randomize again, but delayed so that cards can flip first
+    setTimeout(randomize, 500);
+ 
+    blocked = false;
+
+    //restart time and moves
+    moves = 0;
+    document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
+    clearInterval(Countup);
+ }
+

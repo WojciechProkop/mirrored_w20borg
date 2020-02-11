@@ -11,12 +11,24 @@
 </head>
     <body>
 
-    <header>
-        <h1>Memory Game</h1>
-        <p id="timer"></p>
-    </header>
-        
 <section class="memGame">
+    <div id="header">
+        <h1>Memory Game</h1>
+        <h2 id="nameplace">Username Generator</h2>
+        <h3 id="timer"></h3>
+        <h3 id="matches"></h3>
+        <div id="form">
+
+        <form class="form">
+            <button class="btn" type="button" id="gen-button" onclick="generate()">Generate Username</button>
+            <button class="btn" type="button" id="reset" onclick="reset()">Reset Game</button>
+        </form>
+    
+        </div>
+
+
+    </div>
+
     <div class="memCard" data-name="atmosphere" data-isset="false">
       <img class="cardFront" src="./img/svg/001-atmosphere.svg" alt="Front1"/>
       <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
@@ -65,7 +77,6 @@
         <img class="cardFront" src="./img/svg/034-cactus.svg" alt="Front2"/>
         <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
     </div>
-
 </section>
     </body>
 </html>
