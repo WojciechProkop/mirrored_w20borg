@@ -21,6 +21,45 @@ body {
 #header h1{
     text-align: center;
     color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 50px;
+}
+
+#header h2{
+    text-align: center;
+    color: aliceblue;
+    font-family: Avenir;
+}
+
+
+/* Basic Button Style */
+   .btn {
+       box-sizing: border-box;
+       appearance: none;
+       background-color: transparent;
+       border: 2px solid aqua;
+       border-radius: 0.6em;
+       color: aqua;
+       cursor: pointer;
+       display: flex;
+       align-self: center;
+       font-size: 1rem;
+       font-weight: 400;
+       line-height: 1;
+       margin: 20px;
+       padding: 1.2em 2.8em;
+       text-decoration: none;
+       text-align: center;
+       text-transform: uppercase;
+       font-family: 'Avenir', sans-serif;
+       font-weight: 700;}
+
+#header #form .btn{
+    float:none;
+    margin-right: auto;
+    margin-left: auto;
+
+
 }
 /*How big the screen should be*/
 .memGame{
