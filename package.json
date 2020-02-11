@@ -1,0 +1,22 @@
+{
+  "name": "memory",
+  "version": "1.0.0",
+  "description": "memory game desktop app",
+  "main": "main.js",
+  "dependencies": {
+    "electron": "^7.1.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "w20borg"
+  },
+  "keywords": [
+    "cmpt350"
+  ],
+  "author": "ashley",
+  "license": "MIT"
+}

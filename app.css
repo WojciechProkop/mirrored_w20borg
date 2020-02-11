@@ -1,0 +1,116 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/*Screen background settings*/
+body {
+    height: 100vh;
+    display:  flex;
+    background: url(./img/png/repeated-square-dark.png) 0 0 repeat;
+
+}
+
+#header{
+    float:left;
+    width: 100%;
+    padding: 20px;
+}
+
+#header h1{
+    text-align: center;
+    color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 50px;
+}
+
+#header h2{
+    text-align: center;
+    color: aliceblue;
+    font-family: Avenir;
+}
+
+
+/* Basic Button Style */
+   .btn {
+       box-sizing: border-box;
+       appearance: none;
+       background-color: transparent;
+       border: 2px solid aqua;
+       border-radius: 0.6em;
+       color: aqua;
+       cursor: pointer;
+       display: flex;
+       align-self: center;
+       font-size: 1rem;
+       font-weight: 400;
+       line-height: 1;
+       margin: 20px;
+       padding: 1.2em 2.8em;
+       text-decoration: none;
+       text-align: center;
+       text-transform: uppercase;
+       font-family: 'Avenir', sans-serif;
+       font-weight: 700;}
+
+#header #form .btn{
+    float:none;
+    margin-right: auto;
+    margin-left: auto;
+
+
+}
+/*How big the screen should be*/
+.memGame{
+    width: 640px;
+    height: 640px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 1000px;
+    padding-bottom: 50px;
+}
+/*Set card proportions relative to screen, and set flip timer to both
+faces. Otherwise, flipping to front has transform time, flipping to back
+is instant*/
+.memCard{
+    width: calc(25% - 10px);
+    height: calc(33.333% - 10px);
+    margin: 5px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(226, 4, 4, 0.3);
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
+}
+
+
+
+/*Set card front and back properties*/
+.cardFront,
+.cardBack{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    position: absolute;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    background-color: #361ccc;
+}
+/*Display card front when back is flipped*/
+.cardFront{
+    transform: rotateY(180deg);
+}
+/*When pressed on card, give visual feedback*/
+.memCard:active{
+    transform:scale(0.97);
+    transition:transform .2s;
+}
+
+/*Rotate the card 180deg when clicked. Relevant script is in
+scripts.js*/
+.memCard.flip{
+    transform: rotateY(180deg);
+  }
+  
