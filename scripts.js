@@ -33,7 +33,7 @@ function flipCard()
     }
     moves++;
     //end of timer
-    
+
     flips += 1;
     this.classList.toggle('flip');
     // If this is not the first click
@@ -137,6 +137,19 @@ const nameList = [
 
 let finalName = "";
 
+
+function generate(){
+    document.getElementById("nameplace").innerHTML = randName();
+}
+
+function randName(){
+    finalName = nameList[Math.floor( Math.random() * nameList.length )];
+    finalName += nameList[Math.floor( Math.random() * nameList.length )];
+    if ( Math.random() > 0.5 ) {
+        finalName += nameList[Math.floor( Math.random() * nameList.length )];
+    }
+    return finalName;
+};
 
 function generate(){
     document.getElementById("nameplace").innerHTML = randName();
