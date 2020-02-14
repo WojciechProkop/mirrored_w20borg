@@ -20,6 +20,9 @@ document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
 var matches = 0;
 let gameover = false;
 
+// associate reset() with html button id="reset"
+document.getElementById("reset").onclick = reset;
+
 function flipCard()
 {
     if(blocked)return;
@@ -189,7 +192,9 @@ function reset() {
 
     //restart time and moves
     moves = 0;
-    document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
+    sec = 0;
+    min = 0;
+    //document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
     clearInterval(Countup);
  }
 

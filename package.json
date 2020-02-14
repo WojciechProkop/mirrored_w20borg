@@ -4,7 +4,8 @@
   "description": "memory game desktop app",
   "main": "main.js",
   "dependencies": {
-    "electron": "^7.1.11"
+    "electron": "^7.1.11",
+    "electron-storage": "^1.0.7"
   },
   "devDependencies": {},
   "scripts": {
