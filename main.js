@@ -7,7 +7,7 @@ const path = require('path');
 const {app, BrowserWindow, Menu} = electron;
 
 // Storage for users score
-const storage = require('electron-json-storage');
+/*const storage = require('electron-json-storage');
 const defaultDataPath = storage.getDefaultDataPath()
 
 storage.set('Ashley',{score: 99}, function(error) {
@@ -23,7 +23,7 @@ storage.getAll(function(error, data) {
 
     console.log(data);
 });
-
+*/
 let mainWindow;
 
 // Listen for app to be ready

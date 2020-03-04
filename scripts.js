@@ -1,7 +1,37 @@
 
 //scripts.js
 
-const deck = document.querySelectorAll(".memCard");
+// Sound constructor
+/*
+Attribution licenses:
+https://creativecommons.org/licenses/by/3.0/
+flipCard sound obtained from:
+https://freesound.org/people/f4ngy/sounds/240776/
+
+
+
+*/
+
+function sound(src)
+{
+   this.sound = document.createElement("audio");
+   this.sound.src = src;
+   this.sound.setAttribute("preload", "auto");
+   this.sound.setAttribute("controls", "none");
+   this.sound.style.display = "none";
+   document.body.appendChild(this.sound);
+   this.play = function(){
+       this.sound.play();
+   }
+   this.stop = function(){
+       this.sound.pause();
+   }
+}
+
+var soundFlipCard; // Sound for flipping cards
+sFlipCard = new sound("flip_card.wav");
+
+var deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
 
@@ -26,7 +56,7 @@ document.getElementById("reset").onclick = reset;
 function flipCard()
 {
     if(blocked)return;
-    
+    sFlipCard.play();
     //timer start on first move
     if (moves === 0){
         startTimer();
@@ -51,6 +81,7 @@ function flipCard()
 
             //IF ALL MATCHED
             if (matches === 6){
+                console.log("Won");
                 gameover = true;
                 finalTime = document.getElementById("timer").innerHTML;
                 //document.getElementById("finTime").innerHTML = finalTime;
@@ -85,12 +116,70 @@ function flipCard()
     else {prevCard = this}
 }
 
+function getRandInt(max)
+{
+    return Math.floor(Math.random()*max);
+}
+
 // Shuffle the board
 function randomize()
 {
-    deck.forEach(c => {
-        let ranPos = Math.floor(Math.random() * 12);
-        c.style.order = ranPos;
+    let elems = document.querySelectorAll(".memCard");
+    let w = "calc(25% - 10px)"; // Size of card width
+    let h = "calc(33% - 10px)"; // Size of card length
+    var arrX = 6; // x
+    var arrY = 4; // y
+    let xRatio = (100/arrX) + 10;
+    let yRatio = (100/arrY) + 15;
+ 
+    // Make the x*y array
+    var gameBoard = new Array(arrX);
+    for (i = 0; i < gameBoard.length; i++)
+    {
+        gameBoard[i] = new Array(arrY);
+    }
+
+    // Initialize all values to 0
+    for (i = 0; i < arrX; i++)
+    {
+        for (j = 0; j < arrY; j++)
+        {
+            gameBoard[i][j] = 0;
+        }
+    }
+
+    elems.forEach((elemnt) =>{
+        //let ranPos = Math.floor(Math.random() * 12);
+        //c.style.order = ranPos;
+        let y, x = 0;
+        let rows = getRandInt(arrX);
+        let columns = getRandInt(arrY);
+
+        while(gameBoard[columns][rows] === 1 || rows === 0 || rows === 1)
+        {
+            rows = getRandInt(arrX);
+            columns = getRandInt(arrY);
+        }
+
+        gameBoard[columns][rows] = 1;
+
+        y = rows*yRatio
+        x = columns*xRatio;
+        var outX = "calc(";
+        outX +=x;
+        outX +="% - 30px)";
+
+        var outY = "calc(";
+        outY +=y;
+        outY +="% - 10px)";
+        elemnt.style.left = outX;
+        elemnt.style.top =  outY;
+        elemnt.style.width = w;
+        elemnt.style.height = h;
+
+        console.log(elemnt.style.left);
+        console.log(elemnt.style.top);
+        //console.log(c.style);
     })
 }
 
@@ -210,4 +299,3 @@ function reset() {
     //document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
     clearInterval(Countup);
  }
-
