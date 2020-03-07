@@ -39,7 +39,14 @@ function flipCard()
     //end of timer
 
     if (this.dataset.name   === "disaster"){
-        disasterCounter();
+        disasterCount ++;
+        disasterCounter(disasterCount);
+    }
+
+    if (disasterCount > 4){
+        console.log('Defeat')
+        gameover = true;
+        defeat(disasterCount);
     }
 
     flips += 1;
@@ -57,13 +64,14 @@ function flipCard()
             prevCard = null
             flips = 0;
 
+
             //IF ALL MATCHED
             if (matches === 6){
                 console.log('Victory')
                 gameover = true;
 
                 finalTime = document.getElementById("timer").innerHTML;
-                endGame(finalTime);
+                victory(finalTime);
                 //document.getElementById("finTime").innerHTML = finalTime;
             }
 
@@ -121,8 +129,7 @@ function moveCounter(){
 }
 
 //Counts the Number of disasters
-function disasterCounter() {
-    disasterCount ++;
+function disasterCounter(disasterCount) {
     document.getElementById("disasters").innerHTML = "" + disasterCount;
 
 }
@@ -219,12 +226,18 @@ function reset() {
     clearInterval(Countup);
 }
 
-function endGame(finalTime) {
-    //window.open('https://javascript.info/')
+function victory(finalTime) {
     let newWin = window.open("Victory.html", "Victory", "width=400,height=400");
     newWin.document.getElementById("score").innerHTML = "finalTime";
 
 }
+
+function defeat(disasterCount) {
+    let newWin = window.open("defeat.html", "Defeat", "width=400,height=400");
+    newWin.document.getElementById("disastercount").innerHTML = disasterCount;
+
+}
+
 
 
 
