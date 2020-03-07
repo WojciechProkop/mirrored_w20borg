@@ -4,30 +4,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <title>Memory Game</title>
-
     <link rel="stylesheet" href="./app.css">
 </head>
-    <body>
-
-<section class="memGame">
-    <div id="header">
-        <h1>Memory Game</h1>
-        <h2 id="nameplace">Username Generator</h2>
+<body>
+<div id="header-area">
+    <div id="left-col">
+        <div id="timer-area">
+            <h2>Timer</h2>
+            <h3 id="timer"></h3>
+        </div>
+        <div id="username-area">
+            <h2 id="nameplace">Username Generator</h2>
+            <h3 id="matches"></h3>
+        </div>
         <div id="form">
-
-        <form class="form">
-            <button class="btn" type="button" id="gen-button" onclick="generate()">Generate Username</button>
-        </form>
+            <form class="form">
+                <button class="btn-username" type="button" id="gen-button" onclick="generate()">Generate Username</button>
+            </form>
         </div>
     </div>
+    <div id="middle-col">
+        <h1>SAVE THE CITY</h1>
+        <div id="form">
+            <button class="btn" type="button" id="reset" onclick="reset()">Reset Game</button>
+        </div>
+    </div>
+    <div id="right-col">
+        <div id="disaster-area">
+            <h2>Disasters</h2>
+            <h3 id="disasters"></h3>
+        </div>
+    </div>
+</div>
+
+<div id="clear"></div>
+<section class="memGame">
 
     <div class="memCard" data-name="atmosphere" data-isset="false">
-      <img class="cardFront" src="./img/svg/001-atmosphere.svg" alt="Front1"/>
-      <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
+        <img class="cardFront" src="./img/svg/001-atmosphere.svg" alt="Front1"/>
+        <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
     </div>
-    <div class="memCard" data-name="mountain" data-isset="false">
+    <div class="memCard"  data-name="disaster" data-isset="false">
         <img class="cardFront" src="./img/svg/005-mountain.svg" alt="Front1"/>
         <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
     </div>
@@ -39,7 +57,7 @@
         <img class="cardFront" src="./img/svg/008-glacier.svg" alt="Front2"/>
         <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
     </div>
-    <div class="memCard" data-name="mountain" data-isset="false">
+    <div class="memCard" data-name="disaster" data-isset="false">
         <img class="cardFront" src="./img/svg/005-mountain.svg" alt="Front1"/>
         <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
     </div>
@@ -72,8 +90,8 @@
         <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
     </div>
 </section>
-    </body>
+</body>
 </html>
 
 
-<script src="scripts.js"></script> 
+<script src="scripts.js"></script>
