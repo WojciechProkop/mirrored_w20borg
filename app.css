@@ -130,6 +130,12 @@ body {
     font-family: Avenir;
 }
 
+#header h3{
+    text-align: center;
+    color: palevioletred;
+    font-family: Avenir;
+}
+
 
 /* Basic Button Style */
    .btn {
@@ -222,5 +228,3 @@ scripts.js*/
 .memCard.flip{
     transform: rotateY(180deg);
   }
-
-
