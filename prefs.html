@@ -1,0 +1,45 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Memory Game</title>
+
+    <link rel="stylesheet" href="./pref.css">
+</head>
+<body>
+<div id="header">
+<h1>Save the City</h1>
+    <h2>The game is simple!</h2>
+    <p>Match the city tiles to grow your city before your city is destroyed by disasters.</p>
+    <p><strong>Grow your city by matching city tiles</strong></p>
+</div>
+<div id="clear"></div>
+<div id="main">
+    <img class="tutorial" src="./img/svg/tutorial.svg" alt="tutorial1"/>
+    <p>If you uncover a disaster tile, the tile becomes active.</p>
+    <p>More than 5 Disasters = Game Over</p>
+    <br>
+    <h2>Defeat the Disasters</h2>
+    <p>You defeat disasters with advantage tiles.</p>
+    <img class="tutorial" src="./img/svg/tutorial-2.svg" alt="tutorial1"/>
+    <br>
+    <p>Grow your city before the disasters destroy it!</p>
+    <h2>Good Luck!</h2>
+    <form class="form">
+        <button class="btn" type="button" id="closeBtn" onclick="close_window()">Let's PLay!</button>
+    </form>
+</div>
+</body>
+</html>
+
+
+<script>
+    function close_window() {
+    if (confirm("Ready to close the tutorial window and Start the game?")) {
+        close();
+    }
+}
+</script>

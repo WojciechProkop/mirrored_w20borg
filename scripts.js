@@ -5,7 +5,6 @@ const deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
 
-
 //for move counter
 let moves = 0;
 let counter = document.querySelector(".moves");
@@ -14,7 +13,13 @@ randomize();
 
 //initialize timer
 var sec = 0, min = 0;
-document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
+var finalTime;
+document.getElementById("timer").innerHTML = "0:00";
+
+//initialize disaster counter
+let disasterCount = 0;
+document.getElementById("disasters").innerHTML = "" + disasterCount;
+
 
 //count matches
 var matches = 0;
@@ -26,13 +31,23 @@ document.getElementById("reset").onclick = reset;
 function flipCard()
 {
     if(blocked)return;
-    
     //timer start on first move
     if (moves === 0){
         startTimer();
     }
     moves++;
     //end of timer
+
+    if (this.dataset.name   === "disaster"){
+        disasterCount ++;
+        disasterCounter(disasterCount);
+    }
+
+    if (disasterCount > 4){
+        console.log('Defeat')
+        gameover = true;
+        defeat(disasterCount);
+    }
 
     flips += 1;
     this.classList.toggle('flip');
@@ -49,10 +64,14 @@ function flipCard()
             prevCard = null
             flips = 0;
 
+
             //IF ALL MATCHED
             if (matches === 6){
+                console.log('Victory')
                 gameover = true;
+
                 finalTime = document.getElementById("timer").innerHTML;
+                victory(finalTime);
                 //document.getElementById("finTime").innerHTML = finalTime;
             }
 
@@ -64,15 +83,15 @@ function flipCard()
     if(flips >= 2)
     {
         blocked = true;
-        // Without this delay, last card "flipped" flips back too fast to 
+        // Without this delay, last card "flipped" flips back too fast to
         // be seen.
         if(prevCard != this)
         {
-        setTimeout(() =>{
-        this.classList.toggle('flip');
-        prevCard.classList.toggle('flip');
-        prevCard = null;
-        blocked = false;
+            setTimeout(() =>{
+                this.classList.toggle('flip');
+                prevCard.classList.toggle('flip');
+                prevCard = null;
+                blocked = false;
             }, 1500);
         }
         setTimeout(()=>{
@@ -80,7 +99,7 @@ function flipCard()
             flips = 0;
             prevCard = null;
         }, 1500);
-        
+
     }
     else {prevCard = this}
 }
@@ -107,6 +126,12 @@ function moveCounter(){
         min = 0;
         startTimer(); //insert timer here
     }
+}
+
+//Counts the Number of disasters
+function disasterCounter(disasterCount) {
+    document.getElementById("disasters").innerHTML = "" + disasterCount;
+
 }
 
 const nameList = [
@@ -182,25 +207,42 @@ function startTimer()
     },1000)
 }
 
+//timer
+function startTimer()
+{
+    var Countup = setInterval(function(){
+        ++sec;
+        //document.getElementById("matches").innerHTML = "matches: "+matches;
+        document.getElementById("timer").innerHTML = ""+min+" : "+sec;
+        //if all cards match
+        if (sec == 59){
+            min++;
+            sec = -1;
+        }
+        if (gameover == true){
+            document.getElementById("timer").innerHTML = finalTime;
+        }
+    },1000)
+}
+
 // resets the game board
 function reset() {
     //if (flips > 0) return; // doesn't quite fix a mid-flip reset
- 
+
     // block while reseting
     blocked = true;
     flips = 0;
     prevCard = null;
     blocked = false;
- 
+
     // flips all cards facedown
     deck.forEach(c => c.classList.toggle('flip', false));
- 
+
     // reapply event listener to disabled (or all) cards
     deck.forEach(c => c.addEventListener('click', flipCard));
- 
+
     // randomize again, but delayed so that cards can flip first
     setTimeout(randomize, 500);
- 
     blocked = false;
 
     //restart time and moves
@@ -209,5 +251,18 @@ function reset() {
     min = 0;
     //document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
     clearInterval(Countup);
- }
+}
+
+function victory(finalTime) {
+    let newWin = window.open("Victory.html", "Victory", "width=400,height=400");
+    newWin.document.getElementById("score").innerHTML = "finalTime";
+
+}
+
+function defeat(disasterCount) {
+    let newWin = window.open("defeat.html", "Defeat", "width=400,height=400");
+    newWin.document.getElementById("disastercount").innerHTML = disasterCount;
+
+}
+
 
