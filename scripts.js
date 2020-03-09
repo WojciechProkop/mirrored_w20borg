@@ -1,4 +1,4 @@
-
+=
 //scripts.js
 
 const deck = document.querySelectorAll(".memCard");
@@ -41,10 +41,12 @@ function flipCard()
     flips += 1;
     this.classList.toggle('flip');
 
+    // If this card is a disaster add it to the disaster list and increase disaster count
     if (this.dataset.name   === "fire" ){
+        this.classList.toggle('flip');
+        this.classList.toggle('flip');
         disasterDeck.push(this.dataset.name);
         console.log(disasterDeck);
-        this.classList.toggle('flip');
         this.removeEventListener('click', flipCard);
         disasterCount ++;
         disasterCounter(disasterCount);
@@ -116,8 +118,12 @@ function flipCard()
         if(prevCard != this)
         {
             setTimeout(() =>{
-                this.classList.toggle('flip');
-                prevCard.classList.toggle('flip');
+                if (this.dataset.name   != "fire" ){
+                    this.classList.toggle('flip');
+                }
+                if(prevCard.dataset.name != "fire"){
+                    prevCard.classList.toggle('flip');
+                }
                 prevCard = null;
                 blocked = false;
             }, 1500);
