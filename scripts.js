@@ -1,4 +1,4 @@
-=
+
 //scripts.js
 
 const deck = document.querySelectorAll(".memCard");
