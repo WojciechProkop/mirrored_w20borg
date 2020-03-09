@@ -21,6 +21,7 @@ document.getElementById("timer").innerHTML = "0:00";
 let disasterCount = 0;
 document.getElementById("disasters").innerHTML = "" + disasterCount;
 
+
 //count matches
 var matches = 0;
 let gameover = false;
@@ -31,7 +32,6 @@ document.getElementById("reset").onclick = reset;
 function flipCard()
 {
     if(blocked)return;
-
     //timer start on first move
     if (moves === 0){
         startTimer();
@@ -210,8 +210,36 @@ function randName(){
     return finalName;
 };
 
+function generate(){
+    document.getElementById("nameplace").innerHTML = randName();
+}
 
+function randName(){
+    finalName = nameList[Math.floor( Math.random() * nameList.length )];
+    finalName += nameList[Math.floor( Math.random() * nameList.length )];
+    if ( Math.random() > 0.5 ) {
+        finalName += nameList[Math.floor( Math.random() * nameList.length )];
+    }
+    return finalName;
+};
 
+//timer
+function startTimer()
+{
+    var Countup = setInterval(function(){
+        ++sec;
+        //document.getElementById("matches").innerHTML = "matches: "+matches;
+        document.getElementById("timer").innerHTML = "time: "+min+" min "+sec+" sec";
+        //if all cards match
+        if (sec == 59){
+            min++;
+            sec = -1;
+        }
+        if (gameover == true){
+            document.getElementById("timer").innerHTML = finalTime;
+        }
+    },1000)
+}
 
 //timer
 function startTimer()
@@ -249,7 +277,6 @@ function reset() {
 
     // randomize again, but delayed so that cards can flip first
     setTimeout(randomize, 500);
-
     blocked = false;
 
     //restart time and moves
@@ -271,6 +298,3 @@ function defeat(disasterCount) {
     newWin.document.getElementById("disastercount").innerHTML = '5';
 
 }
-
-
-
