@@ -45,14 +45,13 @@ function flipCard()
         disasterDeck.push(this.dataset.name);
         console.log(disasterDeck);
         this.classList.toggle('flip');
-
         this.removeEventListener('click', flipCard);
         disasterCount ++;
         disasterCounter(disasterCount);
 
     }
 
-    if (disasterDeck.length > 0 && this.dataset.name   === "water" && prevCard == null){
+    if (disasterDeck.length > 0 && this.dataset.name   === "water" && flips === 1){
         let i;
         for (i = 0; i < disasterDeck.length; i++){
             if (disasterDeck[i] === 'fire'){
@@ -60,8 +59,9 @@ function flipCard()
                 this.removeEventListener('click', flipCard);
                 disasterCount --;
                 disasterCounter(disasterCount);
+                disasterDeck.pop();
+                console.log(disasterDeck);
                 matches++;
-                prevCard = null
                 flips = 2;
                 if (matches === 6){
                     console.log('Victory')
@@ -74,7 +74,7 @@ function flipCard()
         }
     }
 
-    if (disasterCount > 4){
+    if (disasterCount > 1){
         console.log('Defeat')
         gameover = true;
         defeat(disasterCount);
