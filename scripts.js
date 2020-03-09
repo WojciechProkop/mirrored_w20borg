@@ -4,6 +4,7 @@
 const deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
+const disasterDeck = [];
 
 //for move counter
 let moves = 0;
@@ -37,10 +38,40 @@ function flipCard()
     }
     moves++;
     //end of timer
+    flips += 1;
+    this.classList.toggle('flip');
 
-    if (this.dataset.name   === "disaster"){
+    if (this.dataset.name   === "fire" ){
+        disasterDeck.push(this.dataset.name);
+        console.log(disasterDeck);
+        this.classList.toggle('flip');
+
+        this.removeEventListener('click', flipCard);
         disasterCount ++;
         disasterCounter(disasterCount);
+
+    }
+
+    if (disasterDeck.length > 0 && this.dataset.name   === "water" && prevCard == null){
+        let i;
+        for (i = 0; i < disasterDeck.length; i++){
+            if (disasterDeck[i] === 'fire'){
+                this.classList.toggle('flip');
+                this.removeEventListener('click', flipCard);
+                disasterCount --;
+                disasterCounter(disasterCount);
+                matches++;
+                prevCard = null
+                flips = 2;
+                if (matches === 6){
+                    console.log('Victory')
+                    gameover = true;
+                    finalTime = document.getElementById("timer").innerHTML;
+                    victory(finalTime);
+                    //document.getElementById("finTime").innerHTML = finalTime;
+                }
+            }
+        }
     }
 
     if (disasterCount > 4){
@@ -49,8 +80,6 @@ function flipCard()
         defeat(disasterCount);
     }
 
-    flips += 1;
-    this.classList.toggle('flip');
     // If this is not the first click
     if(prevCard != null)
     {   // If the this card and the previous card share the same name remove the event
@@ -69,7 +98,6 @@ function flipCard()
             if (matches === 6){
                 console.log('Victory')
                 gameover = true;
-
                 finalTime = document.getElementById("timer").innerHTML;
                 victory(finalTime);
                 //document.getElementById("finTime").innerHTML = finalTime;
@@ -234,10 +262,9 @@ function victory(finalTime) {
 
 function defeat(disasterCount) {
     let newWin = window.open("defeat.html", "Defeat", "width=400,height=400");
-    newWin.document.getElementById("disastercount").innerHTML = disasterCount;
+    newWin.document.getElementById("disastercount").innerHTML = '5';
 
 }
-
 
 
 
