@@ -25,12 +25,18 @@ storage.getAll(function(error, data) {
 });
 */
 let mainWindow;
+let prefWindow;
+
 
 // Listen for app to be ready
 app.on('ready', function () {
 
     // Create new window
     mainWindow = new BrowserWindow({});
+    prefWindow = new BrowserWindow({parent:mainWindow, modal:true, show: false});
+
+    prefWindow.loadURL("file://" + __dirname + '/prefs.html')
+    prefWindow.once('ready-to-show', () =>{prefWindow.show()})
     //load html into window
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),

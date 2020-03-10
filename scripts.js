@@ -40,7 +40,7 @@ sResetGame = new sound("resetGame.wav");
 var deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
-
+const disasterDeck = [];
 
 //for move counter
 let moves = 0;
@@ -50,7 +50,13 @@ randomize();
 
 //initialize timer
 var sec = 0, min = 0;
-document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
+var finalTime;
+document.getElementById("timer").innerHTML = "0:00";
+
+//initialize disaster counter
+let disasterCount = 0;
+document.getElementById("disasters").innerHTML = "" + disasterCount;
+
 
 //count matches
 var matches = 0;
@@ -70,9 +76,50 @@ function flipCard()
     }
     moves++;
     //end of timer
-
     flips += 1;
     this.classList.toggle('flip');
+
+    // If this card is a disaster add it to the disaster list and increase disaster count
+    if (this.dataset.name   === "fire" ){
+        this.classList.toggle('flip');
+        this.classList.toggle('flip');
+        disasterDeck.push(this.dataset.name);
+        console.log(disasterDeck);
+        this.removeEventListener('click', flipCard);
+        disasterCount ++;
+        disasterCounter(disasterCount);
+
+    }
+
+    if (disasterDeck.length > 0 && this.dataset.name   === "water" && flips === 1){
+        let i;
+        for (i = 0; i < disasterDeck.length; i++){
+            if (disasterDeck[i] === 'fire'){
+                this.classList.toggle('flip');
+                this.removeEventListener('click', flipCard);
+                disasterCount --;
+                disasterCounter(disasterCount);
+                disasterDeck.pop();
+                console.log(disasterDeck);
+                matches++;
+                flips = 2;
+                if (matches === 6){
+                    console.log('Victory')
+                    gameover = true;
+                    finalTime = document.getElementById("timer").innerHTML;
+                    victory(finalTime);
+                    //document.getElementById("finTime").innerHTML = finalTime;
+                }
+            }
+        }
+    }
+
+    if (disasterCount > 1){
+        console.log('Defeat')
+        gameover = true;
+        defeat(disasterCount);
+    }
+
     // If this is not the first click
     if(prevCard != null)
     {   // If the this card and the previous card share the same name remove the event
@@ -86,11 +133,13 @@ function flipCard()
             prevCard = null
             flips = 0;
 
+
             //IF ALL MATCHED
             if (matches === 6){
-                console.log("Won");
+                console.log('Victory')
                 gameover = true;
                 finalTime = document.getElementById("timer").innerHTML;
+                victory(finalTime);
                 //document.getElementById("finTime").innerHTML = finalTime;
             }
 
@@ -102,15 +151,19 @@ function flipCard()
     if(flips >= 2)
     {
         blocked = true;
-        // Without this delay, last card "flipped" flips back too fast to 
+        // Without this delay, last card "flipped" flips back too fast to
         // be seen.
         if(prevCard != this)
         {
-        setTimeout(() =>{
-        this.classList.toggle('flip');
-        prevCard.classList.toggle('flip');
-        prevCard = null;
-        blocked = false;
+            setTimeout(() =>{
+                if (this.dataset.name   != "fire" ){
+                    this.classList.toggle('flip');
+                }
+                if(prevCard.dataset.name != "fire"){
+                    prevCard.classList.toggle('flip');
+                }
+                prevCard = null;
+                blocked = false;
             }, 1500);
         }
         setTimeout(()=>{
@@ -118,7 +171,7 @@ function flipCard()
             flips = 0;
             prevCard = null;
         }, 1500);
-        
+
     }
     else {prevCard = this}
 }
@@ -203,6 +256,12 @@ function moveCounter(){
     }
 }
 
+//Counts the Number of disasters
+function disasterCounter(disasterCount) {
+    document.getElementById("disasters").innerHTML = "" + disasterCount;
+
+}
+
 const nameList = [
     'Time', 'Past', 'Future', 'Dev',
     'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
@@ -278,6 +337,24 @@ function startTimer()
     },1000)
 }
 
+//timer
+function startTimer()
+{
+    var Countup = setInterval(function(){
+        ++sec;
+        //document.getElementById("matches").innerHTML = "matches: "+matches;
+        document.getElementById("timer").innerHTML = ""+min+" : "+sec;
+        //if all cards match
+        if (sec == 59){
+            min++;
+            sec = -1;
+        }
+        if (gameover == true){
+            document.getElementById("timer").innerHTML = finalTime;
+        }
+    },1000)
+}
+
 // resets the game board
 function reset() {
     //if (flips > 0) return; // doesn't quite fix a mid-flip reset
@@ -288,16 +365,15 @@ function reset() {
     flips = 0;
     prevCard = null;
     blocked = false;
- 
+
     // flips all cards facedown
     deck.forEach(c => c.classList.toggle('flip', false));
- 
+
     // reapply event listener to disabled (or all) cards
     deck.forEach(c => c.addEventListener('click', flipCard));
- 
+
     // randomize again, but delayed so that cards can flip first
     setTimeout(randomize, 500);
- 
     blocked = false;
 
     //restart time and moves
@@ -306,4 +382,16 @@ function reset() {
     min = 0;
     //document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
     clearInterval(Countup);
- }
+}
+
+function victory(finalTime) {
+    let newWin = window.open("Victory.html", "Victory", "width=400,height=400");
+    newWin.document.getElementById("score").innerHTML = "finalTime";
+
+}
+
+function defeat(disasterCount) {
+    let newWin = window.open("defeat.html", "Defeat", "width=400,height=400");
+    newWin.document.getElementById("disastercount").innerHTML = '5';
+
+}

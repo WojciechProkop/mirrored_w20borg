@@ -1,0 +1,89 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/*Screen background settings*/
+body {
+    height: 100%;
+    margin: 0;
+    padding: 5%;
+    width: 100%;
+    background-color: whitesmoke;
+    text-align: center;
+
+}
+ .tutorial{
+     background-color: white;
+     width: 90%;
+     padding: 5%;
+     margin-top: 2%;
+     margin-bottom: 2%;
+ }
+
+#header{
+    float:left;
+    width: 100%;
+    padding: 20px;
+}
+
+#header h1, #main h1{
+    text-align: center;
+    color: black;
+    font-family: "Avenir Next Condensed";
+    font-size: 50px;
+}
+
+#header h2, #main h2{
+    text-align: center;
+    color: black;
+    font-family: Avenir;
+}
+
+
+/* Basic Button Style */
+.btn {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 0.6em;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1;
+    margin: 20px;
+    padding: 1.2em 2.8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Avenir', sans-serif;
+    font-weight: 700;}
+
+#main .form .btn{
+    float:none;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#clear{
+    float: left;
+    width: 100%;
+    clear: both;
+}
+
+#main{
+    float: left;
+    width:100%;
+}
+
+#header p, #main p{
+    font-family: Avenir;
+    font-size: 3vh;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+}
