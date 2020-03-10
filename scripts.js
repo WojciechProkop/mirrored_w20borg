@@ -1,7 +1,43 @@
 
 //scripts.js
 
-const deck = document.querySelectorAll(".memCard");
+// Sound constructor
+/*
+Attribution licenses:
+https://creativecommons.org/licenses/by/3.0/
+flipCard sound obtained from:
+https://freesound.org/people/f4ngy/sounds/240776/
+
+fireHazard sound obtained from:
+https://freesound.org/people/InspectorJ/sounds/484266/
+
+
+
+*/
+
+function sound(src)
+{
+   this.sound = document.createElement("audio");
+   this.sound.src = src;
+   this.sound.setAttribute("preload", "auto");
+   this.sound.setAttribute("controls", "none");
+   this.sound.style.display = "none";
+   document.body.appendChild(this.sound);
+   this.play = function(){
+       this.sound.play();
+   }
+   this.stop = function(){
+       this.sound.pause();
+   }
+}
+
+sFlipCard = new sound("flip_card.wav");
+sFireHazard = new sound("fireHazard.wav");
+sNameGenerate = new sound("nameGenerate.wav");
+sResetGame = new sound("resetGame.wav");
+
+
+var deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
 const disasterDeck = [];
@@ -32,6 +68,8 @@ document.getElementById("reset").onclick = reset;
 function flipCard()
 {
     if(blocked)return;
+    sFlipCard.play();
+    //sFireHazard.play();
     //timer start on first move
     if (moves === 0){
         startTimer();
@@ -138,12 +176,68 @@ function flipCard()
     else {prevCard = this}
 }
 
+function getRandInt(max)
+{
+    return Math.floor(Math.random()*max);
+}
+
 // Shuffle the board
 function randomize()
 {
-    deck.forEach(c => {
-        let ranPos = Math.floor(Math.random() * 12);
-        c.style.order = ranPos;
+    let elems = document.querySelectorAll(".memCard");
+    let w = "calc(15% - 10px)"; // Size of card width 25-10px
+    let h = "calc(15% - 10px)"; // Size of card length 33-10px
+    var arrX = 5; // x
+    var arrY = 5; // y
+    let xRatio = (100/arrX);
+    let yRatio = (100/arrY);
+ 
+    // Make the x*y array
+    var gameBoard = new Array(arrX);
+    for (i = 0; i < gameBoard.length; i++)
+    {
+        gameBoard[i] = new Array(arrY);
+    }
+
+    // Initialize all values to 0
+    for (i = 0; i < arrX; i++)
+    {
+        for (j = 0; j < arrY; j++)
+        {
+            gameBoard[i][j] = 0;
+        }
+    }
+
+    elems.forEach((elemnt) =>{
+        let y, x = 0;
+        let rows = getRandInt(arrX);
+        let columns = getRandInt(arrY);
+
+        while(gameBoard[columns][rows] === 1 || elems=== undefined)
+        {
+            rows = getRandInt(arrX);
+            columns = getRandInt(arrY);
+        }
+
+        gameBoard[columns][rows] = 1;
+
+        y = rows*yRatio
+        x = columns*xRatio;
+        var outX = "calc(";
+        outX +=x;
+        outX +="% - 0px)";
+
+        var outY = "calc(";
+        outY +=y;
+        outY +="% + 300px)";
+        elemnt.style.left = outX;
+        elemnt.style.top = outY;
+        elemnt.style.width = w;
+        elemnt.style.height = h;
+
+        console.log("left"+elemnt.style.left);
+        console.log("top"+elemnt.style.top);
+        //console.log(c.style);
     })
 }
 
@@ -199,6 +293,8 @@ let finalName = "";
 
 function generate(){
     document.getElementById("nameplace").innerHTML = randName();
+    sNameGenerate.play();
+
 }
 
 function randName(){
@@ -262,6 +358,7 @@ function startTimer()
 // resets the game board
 function reset() {
     //if (flips > 0) return; // doesn't quite fix a mid-flip reset
+    sResetGame.play();
 
     // block while reseting
     blocked = true;
