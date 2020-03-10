@@ -8,6 +8,9 @@ https://creativecommons.org/licenses/by/3.0/
 flipCard sound obtained from:
 https://freesound.org/people/f4ngy/sounds/240776/
 
+fireHazard sound obtained from:
+https://freesound.org/people/InspectorJ/sounds/484266/
+
 
 
 */
@@ -28,8 +31,11 @@ function sound(src)
    }
 }
 
-var soundFlipCard; // Sound for flipping cards
 sFlipCard = new sound("flip_card.wav");
+sFireHazard = new sound("fireHazard.wav");
+sNameGenerate = new sound("nameGenerate.wav");
+sResetGame = new sound("resetGame.wav");
+
 
 var deck = document.querySelectorAll(".memCard");
 let prevCard = null;
@@ -57,6 +63,7 @@ function flipCard()
 {
     if(blocked)return;
     sFlipCard.play();
+    //sFireHazard.play();
     //timer start on first move
     if (moves === 0){
         startTimer();
@@ -125,12 +132,12 @@ function getRandInt(max)
 function randomize()
 {
     let elems = document.querySelectorAll(".memCard");
-    let w = "calc(25% - 10px)"; // Size of card width
-    let h = "calc(33% - 10px)"; // Size of card length
-    var arrX = 6; // x
-    var arrY = 4; // y
-    let xRatio = (100/arrX) + 10;
-    let yRatio = (100/arrY) + 15;
+    let w = "calc(15% - 10px)"; // Size of card width 25-10px
+    let h = "calc(15% - 10px)"; // Size of card length 33-10px
+    var arrX = 5; // x
+    var arrY = 5; // y
+    let xRatio = (100/arrX);
+    let yRatio = (100/arrY);
  
     // Make the x*y array
     var gameBoard = new Array(arrX);
@@ -149,13 +156,11 @@ function randomize()
     }
 
     elems.forEach((elemnt) =>{
-        //let ranPos = Math.floor(Math.random() * 12);
-        //c.style.order = ranPos;
         let y, x = 0;
         let rows = getRandInt(arrX);
         let columns = getRandInt(arrY);
 
-        while(gameBoard[columns][rows] === 1 || rows === 0 || rows === 1)
+        while(gameBoard[columns][rows] === 1 || elems=== undefined)
         {
             rows = getRandInt(arrX);
             columns = getRandInt(arrY);
@@ -167,18 +172,18 @@ function randomize()
         x = columns*xRatio;
         var outX = "calc(";
         outX +=x;
-        outX +="% - 30px)";
+        outX +="% - 0px)";
 
         var outY = "calc(";
         outY +=y;
-        outY +="% - 10px)";
+        outY +="% + 300px)";
         elemnt.style.left = outX;
-        elemnt.style.top =  outY;
+        elemnt.style.top = outY;
         elemnt.style.width = w;
         elemnt.style.height = h;
 
-        console.log(elemnt.style.left);
-        console.log(elemnt.style.top);
+        console.log("left"+elemnt.style.left);
+        console.log("top"+elemnt.style.top);
         //console.log(c.style);
     })
 }
@@ -229,6 +234,8 @@ let finalName = "";
 
 function generate(){
     document.getElementById("nameplace").innerHTML = randName();
+    sNameGenerate.play();
+
 }
 
 function randName(){
@@ -274,7 +281,8 @@ function startTimer()
 // resets the game board
 function reset() {
     //if (flips > 0) return; // doesn't quite fix a mid-flip reset
- 
+    sResetGame.play();
+
     // block while reseting
     blocked = true;
     flips = 0;
