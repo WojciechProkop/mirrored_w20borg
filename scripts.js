@@ -158,7 +158,7 @@ function moveCounter(){
     if(moves == 1){
         sec = 0;
         min = 0;
-        startTimer(); //insert timer here
+        //startTimer(); //insert timer here
     }
 }
 
@@ -194,21 +194,7 @@ const nameList = [
     'Grand', 'Cool', 'Kid', 'Boy', 'Girl', 'Vortex', 'Paradox'
 ];
 
-let finalName = "";
-
-
-function generate(){
-    document.getElementById("nameplace").innerHTML = randName();
-}
-
-function randName(){
-    finalName = nameList[Math.floor( Math.random() * nameList.length )];
-    finalName += nameList[Math.floor( Math.random() * nameList.length )];
-    if ( Math.random() > 0.5 ) {
-        finalName += nameList[Math.floor( Math.random() * nameList.length )];
-    }
-    return finalName;
-};
+var finalName = "";
 
 function generate(){
     document.getElementById("nameplace").innerHTML = randName();
@@ -229,25 +215,7 @@ function startTimer()
     var Countup = setInterval(function(){
         ++sec;
         //document.getElementById("matches").innerHTML = "matches: "+matches;
-        document.getElementById("timer").innerHTML = "time: "+min+" min "+sec+" sec";
-        //if all cards match
-        if (sec == 59){
-            min++;
-            sec = -1;
-        }
-        if (gameover == true){
-            document.getElementById("timer").innerHTML = finalTime;
-        }
-    },1000)
-}
-
-//timer
-function startTimer()
-{
-    var Countup = setInterval(function(){
-        ++sec;
-        //document.getElementById("matches").innerHTML = "matches: "+matches;
-        document.getElementById("timer").innerHTML = ""+min+" : "+sec;
+        document.getElementById("timer").innerHTML = ""+min+":"+sec;
         //if all cards match
         if (sec == 59){
             min++;
@@ -279,11 +247,15 @@ function reset() {
     setTimeout(randomize, 500);
     blocked = false;
 
-    //restart time and moves
+    //restart time, matches, moves, disaster count
     moves = 0;
+    counter = 0;
     sec = 0;
     min = 0;
-    //document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
+    matches = 0;
+    disasterCount = 0;
+    //gameover == false;
+ 
     clearInterval(Countup);
 }
 
