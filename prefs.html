@@ -26,15 +26,28 @@
     <p>You defeat disasters with advantage tiles.</p>
     <img class="tutorial" src="./img/svg/tutorial-2.svg" alt="tutorial1"/>
     <br>
+    <div id="username-area">
+        <h2 id="nameplace">Username Generator</h2>
+        <h3 id="matches"></h3>
+    </div>
+    <div id="form">
+        <form class="form">
+            <button class="btn-username" type="button" id="gen-button" onclick="generate()">Generate Username</button>
+            <button class="btn-username" type="button" id="user-button" onclick="acceptname()">Accept Username</button>
+        </form>
+    </div>
     <p>Grow your city before the disasters destroy it!</p>
     <h2>Good Luck!</h2>
     <form class="form">
+        <h2 id="username">UserName</h2>
         <button class="btn" type="button" id="closeBtn" onclick="close_window()">Let's PLay!</button>
+
     </form>
 </div>
+
+
 </body>
 </html>
-
 
 <script>
     function close_window() {
@@ -42,4 +55,69 @@
         close();
     }
 }
+    const nameList = [
+        'Time', 'Past', 'Future', 'Dev',
+        'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
+        'Fall', 'Jump', 'Cliff', 'Mountain', 'Rend', 'Red', 'Blue',
+        'Green', 'Yellow', 'Gold', 'Demon', 'Demonic', 'Panda', 'Cat',
+        'Kitty', 'Kitten', 'Zero', 'Memory', 'Trooper', 'XX', 'Bandit',
+        'Fear', 'Light', 'Glow', 'Tread', 'Deep', 'Deeper', 'Deepest',
+        'Mine', 'Your', 'Worst', 'Enemy', 'Hostile', 'Force', 'Video',
+        'Game', 'Donkey', 'Mule', 'Colt', 'Cult', 'Cultist', 'Magnum',
+        'Assault', 'Recon', 'Trap', 'Trapper', 'Redeem', 'Code',
+        'Script', 'Writer', 'Near', 'Close', 'Open', 'Cube', 'Circle',
+        'Geo', 'Genome', 'Germ', 'Spaz', 'Shot', 'Echo', 'Beta', 'Alpha',
+        'Gamma', 'Omega', 'Seal', 'Squid', 'Money', 'Cash', 'Lord', 'King',
+        'Duke', 'Rest', 'Fire', 'Flame', 'Morrow', 'Break', 'Breaker', 'Numb',
+        'Ice', 'Cold', 'Rotten', 'Sick', 'Sickly', 'Janitor', 'Camel', 'Rooster',
+        'Sand', 'Desert', 'Dessert', 'Hurdle', 'Racer', 'Eraser', 'Erase', 'Big',
+        'Small', 'Short', 'Tall', 'Sith', 'Bounty', 'Hunter', 'Cracked', 'Broken',
+        'Sad', 'Happy', 'Joy', 'Joyful', 'Crimson', 'Destiny', 'Deceit', 'Lies',
+        'Lie', 'Honest', 'Destined', 'Bloxxer', 'Hawk', 'Eagle', 'Hawker', 'Walker',
+        'Zombie', 'Sarge', 'Capt', 'Captain', 'Punch', 'One', 'Two', 'Uno', 'Slice',
+        'Slash', 'Melt', 'Melted', 'Melting', 'Fell', 'Wolf', 'Hound',
+        'Legacy', 'Sharp', 'Dead', 'Mew', 'Chuckle', 'Bubba', 'Bubble', 'Sandwich', 'Smasher', 'Extreme', 'Multi',
+        'Universe', 'Ultimate', 'Death', 'Ready', 'Monkey', 'Elevator', 'Wrench', 'Grease', 'Head', 'Theme',
+        'Grand', 'Cool', 'Kid', 'Boy', 'Girl', 'Vortex', 'Paradox'
+    ];
+
+    let finalName = "";
+    let userName = "";
+
+
+    function generate(){
+        document.getElementById("nameplace").innerHTML = randName();
+    }
+
+    function randName(){
+        finalName = nameList[Math.floor( Math.random() * nameList.length )];
+        finalName += nameList[Math.floor( Math.random() * nameList.length )];
+        if ( Math.random() > 0.5 ) {
+            finalName += nameList[Math.floor( Math.random() * nameList.length )];
+        }
+        return finalName;
+    };
+
+    function acceptname() {
+        // Once the user accepts the username save it in the file
+        const remote = require('electron').remote;
+        const storage = require('electron-json-storage');
+        const defaultDataPath = storage.getDefaultDataPath();
+
+        let userName = document.getElementById("nameplace").innerHTML;
+        document.getElementById("username").innerHTML = document.getElementById("nameplace").innerHTML;
+
+
+        // Store the username in the console with a score of zero
+        storage.set(userName,{score: 'unknown'}, function(error) {
+            if (error) throw error;
+        });
+
+        storage.getAll(function(error, data) {
+            if (error) throw error;
+            console.log(data);
+        });
+
+    }
+
 </script>
