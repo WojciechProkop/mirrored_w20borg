@@ -13,7 +13,54 @@
     <h2>You saved the city!</h2>
     <p>Get your score here</p>
     <h3 id="score"></h3>
+
 </div>
 
 </body>
 </html>
+
+<script>
+    const query = location.search.substring(1);
+    console.log(query);
+    const keyValues = query.split(/&/);
+    console.log(keyValues);
+    const keyValuePairs = keyValues[0].split(/=/);
+    console.log(keyValuePairs);
+    let value = keyValuePairs[1];
+    console.log(keyValuePairs);
+
+    document.getElementById("score").innerHTML = value;
+
+    let largest = 0;
+
+
+    // Once the user accepts the username save it in the file
+    const remote = require('electron').remote;
+    const storage = require('electron-json-storage');
+
+    storage.keys(function(error, keys) {
+        if (error) throw error;
+
+        for (var key of keys) {
+            storage.get(key, function(error, data) {
+                if (error) throw error;
+                console.log(data);
+                if (data.score === 'unknown'){
+                    storage.remove(key, function(error) {
+                        if (error) throw error;
+                    });
+                    storage.set(key,{score: value}, function(error) {
+                        if (error) throw error;
+                    });
+                }
+            });
+        }
+    });
+
+    storage.getAll(function(error, data) {
+        if (error) throw error;
+        console.log(data);
+    });
+
+
+</script>
