@@ -64,7 +64,7 @@ function acceptname() {
 
     if(document.getElementById('single').checked){
         // Store the username in the console with a score of zero
-        storage.set(userName, { mode: 'sinlge', score:null }, function(error) {
+        storage.set(userName, { mode: 'single', score:null }, function(error) {
             if (error) throw error;
         });
     }
@@ -101,11 +101,11 @@ function saveScore() {
         if (error) throw error;
 
         for (let key of keys) {
-            console.log('There is a key called: ' + key);
+            //console.log('There is a key called: ' + key);
             storage.get(key, function(error, data) {
                 if (error) throw error;
 
-                console.log(data);
+                //console.log(data);
                 if(data.score == null){
                     let gmmode = data.mode;
                     storage.remove(key, function(error) {
@@ -121,12 +121,101 @@ function saveScore() {
 
     storage.getAll(function(error, data) {
         if (error) throw error;
-
-        console.log(data);
+        //console.log(data);
     });
-
-
-
-
 }
 
+function singleScoreBoard(){
+
+    const storage = require('electron-json-storage');
+    let scoreboard = {};
+    const scoreKeys = new Array();
+    const scoreData = new Array();
+
+
+    storage.keys(function(error, keys) {
+        if (error) throw error;
+
+        for (let key of keys) {
+            storage.get(key, function(error, data) {
+                if (error) throw error;
+                if (data.mode != 'multi'){
+                    scoreboard[key] = data;
+                }
+                scoreKeys.push(key);
+                scoreData.push(data);
+
+                scoreboardSorted(scoreboard);
+
+            });
+        }
+    });
+    console.log(scoreboard);
+}
+
+function multiScoreBoard(){
+
+    const storage = require('electron-json-storage');
+    let scoreboard = {};
+    const scoreKeys = new Array();
+    const scoreData = new Array();
+
+
+    storage.keys(function(error, keys) {
+        if (error) throw error;
+
+        for (let key of keys) {
+            storage.get(key, function(error, data) {
+                if (error) throw error;
+                if (data.mode == 'multi'){
+                    scoreboard[key] = data;
+                }
+                scoreKeys.push(key);
+                scoreData.push(data);
+
+                multiscoreboardSorted(scoreboard);
+
+            });
+        }
+    });
+    console.log(scoreboard);
+}
+
+
+function scoreboardSorted(scoreboard){
+
+    // Sort the dictionary to get the fastest time
+    function orderBySubKey( input, key ) {
+        return Object.keys( input ).map( key => ({ key, value: input[key] }) ).sort( (a, b) => a.value[key] - b.value[key] );
+    }
+
+    // Take top 5 people for score board
+    let scoreArray = orderBySubKey( scoreboard, 'score' ).slice(0, 5);
+    let myJSON = '';
+    for (i = 0; i < scoreArray.length; i++){
+        myJSON += JSON.stringify(scoreArray[i].key);
+        myJSON += JSON.stringify(scoreArray[i].value.score);
+        myJSON += '<br>';
+    }
+
+    document.getElementById("single-player-score").innerHTML = myJSON;
+}
+
+function multiscoreboardSorted(scoreboard){
+
+    // Sort the dictionary to get the fastest time
+    function orderBySubKey( input, key ) {
+        return Object.keys( input ).map( key => ({ key, value: input[key] }) ).sort( (a, b) => a.value[key] - b.value[key] );
+    }
+
+    // Take top 5 people for score board
+    let scoreArray = orderBySubKey( scoreboard, 'score' ).slice(0, 5);
+    let myJSON = '';
+    for (i = 0; i < scoreArray.length; i++){
+        myJSON += JSON.stringify(scoreArray[i].key);
+        myJSON += JSON.stringify(scoreArray[i].value.score);
+        myJSON += '<br>';
+    }
+
+    document.getElementById("multi-player-score").innerHTML = myJSON;
+}
