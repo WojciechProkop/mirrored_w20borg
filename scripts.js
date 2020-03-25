@@ -57,7 +57,6 @@ document.getElementById("timer").innerHTML = "0:00";
 let disasterCount = 0;
 document.getElementById("disasters").innerHTML = "" + disasterCount;
 
-
 //count matches
 var matches = 0;
 let gameover = false;
@@ -262,6 +261,10 @@ function disasterCounter(disasterCount) {
 
 }
 
+function getUsername() {
+    // Once the user accepts the username save it in the file
+    const storage = require('electron-json-storage');
+  
 const nameList = [
     'Time', 'Past', 'Future', 'Dev',
     'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
@@ -297,45 +300,23 @@ function generate(){
 
 }
 
-function randName(){
-    finalName = nameList[Math.floor( Math.random() * nameList.length )];
-    finalName += nameList[Math.floor( Math.random() * nameList.length )];
-    if ( Math.random() > 0.5 ) {
-        finalName += nameList[Math.floor( Math.random() * nameList.length )];
-    }
-    return finalName;
-};
+    storage.keys(function(error, keys) {
+        if (error) throw error;
 
-function generate(){
-    document.getElementById("nameplace").innerHTML = randName();
+        for (let key of keys) {
+            //console.log('There is a key called: ' + key);
+            storage.get(key, function(error, data) {
+                if (error) throw error;
+
+                //console.log(data);
+                if(data.score == null){
+                    document.getElementById("nameplace").innerHTML = key;
+                }
+            });
+        }
+    });
 }
 
-function randName(){
-    finalName = nameList[Math.floor( Math.random() * nameList.length )];
-    finalName += nameList[Math.floor( Math.random() * nameList.length )];
-    if ( Math.random() > 0.5 ) {
-        finalName += nameList[Math.floor( Math.random() * nameList.length )];
-    }
-    return finalName;
-};
-
-//timer
-function startTimer()
-{
-    var Countup = setInterval(function(){
-        ++sec;
-        //document.getElementById("matches").innerHTML = "matches: "+matches;
-        document.getElementById("timer").innerHTML = "time: "+min+" min "+sec+" sec";
-        //if all cards match
-        if (sec == 59){
-            min++;
-            sec = -1;
-        }
-        if (gameover == true){
-            document.getElementById("timer").innerHTML = finalTime;
-        }
-    },1000)
-}
 
 //timer
 function startTimer()
@@ -374,6 +355,7 @@ function reset() {
 
     // randomize again, but delayed so that cards can flip first
     setTimeout(randomize, 500);
+
     blocked = false;
 
     //restart time and moves
@@ -385,8 +367,14 @@ function reset() {
 }
 
 function victory(finalTime) {
-    let newWin = window.open("Victory.html", "Victory", "width=400,height=400");
-    newWin.document.getElementById("score").innerHTML = "finalTime";
+
+    const remote = require('electron').remote;
+    const { BrowserWindow } = require('electron').remote
+
+    let win = new BrowserWindow({ width: 800, height: 600, modal:true,  webPreferences:{nodeIntegration:true} })
+    win.loadURL("file://" + __dirname + '/Victory.html?user=' + finalTime )
+    //let newWin = window.open("Victory.html?user=" + finalTime , "Victory", "width=400,height=400");
+
 
 }
 
@@ -395,3 +383,26 @@ function defeat(disasterCount) {
     newWin.document.getElementById("disastercount").innerHTML = '5';
 
 }
+
+function loadleaderboard() {
+    const remote = require('electron').remote;
+    const { BrowserWindow } = require('electron').remote
+
+    let win = new BrowserWindow({ width: 800, height: 600, modal:true,  webPreferences:{nodeIntegration:true} })
+    win.loadURL("file://" + __dirname + '/leaderboard.html')
+
+}
+
+function mainmenu() {
+    const remote = require('electron').remote;
+    const { BrowserWindow } = require('electron').remote
+
+    let win = new BrowserWindow({ width: 800, height: 600, modal:true })
+    win.loadURL("file://" + __dirname + '/prefs.html')
+
+}
+
+
+
+
+
