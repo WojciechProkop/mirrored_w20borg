@@ -190,10 +190,10 @@ body {
 faces. Otherwise, flipping to front has transform time, flipping to back
 is instant*/
 .memCard{
-    width: calc(25% - 10px);
-    height: calc(33.333% - 10px);
+    /*width: calc(25% - 10px);
+    height: calc(33.333% - 10px);*/
     margin: 5px;
-    position: relative;
+    position: absolute;
     box-shadow: 1px 1px 1px rgba(226, 4, 4, 0.3);
     transform: scale(1);
     transform-style: preserve-3d;
