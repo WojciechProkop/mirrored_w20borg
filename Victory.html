@@ -16,17 +16,15 @@
 </div>
 <div id="clear"></div>
 <div id="main">
-    <div id="single">
-        <h2>Single-PLayer LeaderBoard </h2>
-        <p id="single-player-score"></p>
-    </div>
-    <div id="mutli">
-        <h2>Multi-PLayer LeaderBoard </h2>
-        <p id="multi-player-score"></p>
-    </div>
+    <form class="form">
+        <button class="btn" type="button" id="btn" onclick="close_board()">Close Window</button>
+        <button class="btn" type="button" id="leaderboard" onclick="loadleaderboard()">View Leader board</button>
+        <button class="btn" type="button" id="main-btn" onclick="mainmenu()">View Main Menu</button>
+    </form>
 </div>
 </body>
 </html>
 
 
 <script src="window.js"></script>
+<script src="scripts.js"></script>
