@@ -4,6 +4,10 @@ function close_window() {
     }
 }
 
+function close_board() {
+    close();
+}
+
 const nameList = [
     'Time', 'Past', 'Future', 'Dev',
     'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
@@ -139,6 +143,11 @@ function singleScoreBoard(){
         for (let key of keys) {
             storage.get(key, function(error, data) {
                 if (error) throw error;
+                if (data.score == null){
+                    storage.remove(key, function(error) {
+                        if (error) throw error;
+                    });
+                }
                 if (data.mode != 'multi'){
                     scoreboard[key] = data;
                 }
@@ -167,6 +176,11 @@ function multiScoreBoard(){
         for (let key of keys) {
             storage.get(key, function(error, data) {
                 if (error) throw error;
+                if (data.score == null){
+                    storage.remove(key, function(error) {
+                        if (error) throw error;
+                    });
+                }
                 if (data.mode == 'multi'){
                     scoreboard[key] = data;
                 }
