@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+<g>
+	<rect x="11.346" y="39.979" fill="#A9D4F1" width="20.043" height="51.539"/>
+	<rect x="31.389" y="8.482" fill="#EF463D" width="37.223" height="83.035"/>
+	<rect x="39.979" y="62.885" fill="#BAE4FA" width="20.043" height="28.633"/>
+	<rect x="49.284" y="62.885" fill="#5EA6DB" width="1.432" height="28.633"/>
+	<rect x="68.611" y="39.979" fill="#A9D4F1" width="20.043" height="51.539"/>
+	<g>
+		<rect x="74.338" y="45.705" fill="#5EA6DB" width="8.59" height="5.727"/>
+		<rect x="74.338" y="57.158" fill="#5EA6DB" width="8.59" height="5.727"/>
+		<rect x="74.338" y="68.611" fill="#5EA6DB" width="8.59" height="5.728"/>
+		<rect x="74.338" y="80.064" fill="#5EA6DB" width="8.59" height="5.727"/>
+	</g>
+	<polygon fill="#BAE4FA" points="54.295,14.209 45.705,14.209 45.705,22.799 37.115,22.799 37.115,31.389 45.705,31.389 
+		45.705,39.979 54.295,39.979 54.295,31.389 62.885,31.389 62.885,22.799 54.295,22.799 	"/>
+	<g>
+		<rect x="17.072" y="45.705" fill="#5EA6DB" width="8.59" height="5.727"/>
+		<rect x="17.072" y="57.158" fill="#5EA6DB" width="8.59" height="5.727"/>
+		<rect x="17.072" y="68.611" fill="#5EA6DB" width="8.59" height="5.728"/>
+		<rect x="17.072" y="80.064" fill="#5EA6DB" width="8.59" height="5.727"/>
+	</g>
+	<g>
+		<path fill="#A9D4F1" d="M44.273,91.518h5.011v-4.131C47.678,88.837,46.007,90.213,44.273,91.518z"/>
+		<path fill="#A9D4F1" d="M50.716,86.035v5.482h9.306v-16.32C57.287,79.11,54.17,82.74,50.716,86.035z"/>
+	</g>
+	<path fill="#478ECC" d="M50,86.719c-0.239,0.222-0.474,0.448-0.716,0.668v4.131h1.432v-5.482
+		C50.477,86.264,50.242,86.494,50,86.719z"/>
+</g>
+</svg>

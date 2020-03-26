@@ -6,43 +6,212 @@
 
 /*Screen background settings*/
 body {
-    height: 100vh;
-    display:  flex;
-    background:#361ccc
+    height: 100%;
+    margin: 0;
+    padding: 5%;
+    width: 100%;
+    background: black url(./img/png/edmonton.png) no-repeat;
+    background-size: cover;
+    color: white;
+
 }
+.header-area{
+    float: left;
+    width:100%;
+}
+
+#left-col{
+    float:left;
+    width: 20%;
+}
+#middle-col{
+    float:left;
+    width: 60%;
+    text-align: center;
+}
+#right-col{
+    float:left;
+    width: 20%;
+}
+#clear{
+    float: left;
+    width: 100%;
+    clear: both;
+}
+#left-col #timer-area{
+    background-color: aqua;
+    padding: 5%;
+    text-align: center;
+}
+#left-col #username-area{
+    background-color: whitesmoke;
+    padding: 5%;
+    text-align: center;
+}
+
+#left-col #username-area h2{
+    text-align: center;
+    color: darkorange;
+    font-family: "Avenir Next Condensed";
+    font-weight: 300;
+    font-size: 2vh;
+}
+
+#left-col #timer-area h2{
+    text-align: center;
+    color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 4vh;
+}
+
+#left-col #timer-area h3{
+    color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 7vh;
+}
+
+#right-col #disaster-area {
+    background-color: crimson;
+    padding: 5%;
+    text-align: center;
+}
+
+#right-col #disaster-area h2{
+    text-align: center;
+    color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 4vh;
+}
+#right-col #disaster-area h3{
+    color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 7vh;
+}
+
+
+#middle-col h1{
+    color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 8vh;
+}
+
+#middle-col #form .btn{
+    float:none;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 /*How big the screen should be*/
 .memGame{
-    width: 640px;
-    height: 640px;
+    width: 90vw;
+    height: 90vh;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
     perspective: 1000px;
 }
+
+#header{
+    float:left;
+    width: 100%;
+    padding: 20px;
+}
+
+#header h1{
+    text-align: center;
+    color: aliceblue;
+    font-family: "Avenir Next Condensed";
+    font-size: 5vh;
+}
+
+#header h2{
+    text-align: center;
+    color: aliceblue;
+    font-family: Avenir;
+}
+
+#header h3{
+    text-align: center;
+    color: palevioletred;
+    font-family: Avenir;
+}
+
+
+/* Basic Button Style */
+   .btn {
+       box-sizing: border-box;
+       appearance: none;
+       background-color: transparent;
+       border: 2px solid aqua;
+       border-radius: 0.6em;
+       color: aqua;
+       cursor: pointer;
+       display: flex;
+       align-self: center;
+       font-size: 3vh;
+       font-weight: 400;
+       line-height: 1;
+       margin: 20px;
+       padding: 1.2em 2.8em;
+       text-decoration: none;
+       text-align: center;
+       text-transform: uppercase;
+       font-family: 'Avenir', sans-serif;
+       font-weight: 700;}
+
+.btn-username {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid aqua;
+    border-radius: 0.6em;
+    color: aqua;
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    font-size: 2vh;
+    font-weight: 100;
+    line-height: 1;
+    margin: 20px;
+    padding: 1.2em 2.8em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Avenir', sans-serif;
+    font-weight: 700;}
+
+#header #form .btn{
+    float:none;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 /*Set card proportions relative to screen, and set flip timer to both
 faces. Otherwise, flipping to front has transform time, flipping to back
 is instant*/
 .memCard{
-    width: calc(25% - 10px);
-    height: calc(33.333% - 10px);
+    /*width: calc(25% - 10px);
+    height: calc(33.333% - 10px);*/
     margin: 5px;
-    position: relative;
+    position: absolute;
     box-shadow: 1px 1px 1px rgba(226, 4, 4, 0.3);
     transform: scale(1);
     transform-style: preserve-3d;
     transition: transform 0.4s;
 }
 
+
+
 /*Set card front and back properties*/
 .cardFront,
 .cardBack{
     width: 100%;
-    height: 100;
+    height: 100%;
     padding: 10px;
     position: absolute;
     border-radius: 5px;
-    background: #361ccc;
     backface-visibility: hidden;
+    background-color: #361ccc;
 }
 /*Display card front when back is flipped*/
 .cardFront{
@@ -59,4 +228,3 @@ scripts.js*/
 .memCard.flip{
     transform: rotateY(180deg);
   }
-  
