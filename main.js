@@ -30,10 +30,9 @@ let prefWindow;
 
 // Listen for app to be ready
 app.on('ready', function () {
-
     // Create new window
-    mainWindow = new BrowserWindow({});
-    prefWindow = new BrowserWindow({parent:mainWindow, modal:true, show: false});
+    mainWindow = new BrowserWindow({webPreferences:{nodeIntegration:true}});
+    prefWindow = new BrowserWindow({parent:mainWindow, modal:true, show: false, webPreferences:{nodeIntegration:true}});
 
     prefWindow.loadURL("file://" + __dirname + '/prefs.html')
     prefWindow.once('ready-to-show', () =>{prefWindow.show()})
@@ -41,7 +40,7 @@ app.on('ready', function () {
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
         protocol: 'file:',
-        slashes: true
+        slashes: true,
     }));
 
     // Build Menu from Template

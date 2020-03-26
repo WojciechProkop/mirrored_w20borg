@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>LeaderBoard</title>
+
+    <link rel="stylesheet" href="./pref.css">
+</head>
+<body onload="singleScoreBoard(), multiScoreBoard()">
+<div id="main">
+    <div id="single">
+        <h2>Single-Player LeaderBoard </h2>
+        <p id="single-player-score"></p>
+    </div>
+    <div id="mutli">
+        <h2>Multi-Player LeaderBoard </h2>
+        <p id="multi-player-score"></p>
+    </div>
+</div>
+<form class="form">
+    <button class="btn" type="button" id="btn" onclick="close_board()">Close Leaderboard</button>
+</form>
+</body>
+</html>
+
+
+<script src="window.js"></script>

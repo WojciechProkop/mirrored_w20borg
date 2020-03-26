@@ -7,13 +7,24 @@
 
     <link rel="stylesheet" href="./pref.css">
 </head>
-<body>
+<body onload="saveScore(), singleScoreBoard(), multiScoreBoard()">
 <div id="header">
     <h1>VICTORY</h1>
     <h2>You saved the city!</h2>
     <p>Get your score here</p>
     <h3 id="score"></h3>
 </div>
-
+<div id="clear"></div>
+<div id="main">
+    <form class="form">
+        <button class="btn" type="button" id="btn" onclick="close_board()">Close Window</button>
+        <button class="btn" type="button" id="leaderboard" onclick="loadleaderboard()">View Leader board</button>
+        <button class="btn" type="button" id="main-btn" onclick="mainmenu()">View Main Menu</button>
+    </form>
+</div>
 </body>
 </html>
+
+
+<script src="window.js"></script>
+<script src="scripts.js"></script>
