@@ -1,11 +1,30 @@
 
 //scripts.js
 
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+  }
+
+
+mySound = new sound("240776__f4ngy__card-flip.wav");
 const deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
 function flipCard()
 {
+    mySound.play();
     flips += 1;
     this.classList.toggle('flip');
     // If this is not the first click
@@ -40,8 +59,6 @@ function flipCard()
 }
 // Add eventListener events to every card during initialization, and call flipCard() when clicked.
 deck.forEach(c =>c.addEventListener('click', flipCard));
-
-
 
 
 
