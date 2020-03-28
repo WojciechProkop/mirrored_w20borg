@@ -67,7 +67,7 @@ function flipCard()
     if(blocked)return;
 
     //timer start on first move
-    if (moves === 0){
+    if (moves === 1){
         startTimer();
     }
     moves++;
@@ -77,6 +77,7 @@ function flipCard()
 
     // If this card is a disaster add it to the disaster list and increase disaster count
     if (this.dataset.name   === "fire" ){
+        sFireHazard.play();
         this.classList.toggle('flip');
         this.classList.toggle('flip');
         disasterDeck.push(this.dataset.name);
@@ -220,7 +221,7 @@ function randomize()
 
         var outY = "calc(";
         outY +=y;
-        outY +="% + 300px)";
+        outY +="% + 0px)";
         elemnt.style.left = outX;
         elemnt.style.top = outY;
         elemnt.style.width = w;
@@ -239,7 +240,7 @@ function moveCounter(){
     moves++;
     counter.innerHTML = moves;
     //start timer on first click
-    if(moves == 1){
+    if(moves === 1){
         sec = 0;
         min = 0;
         startTimer(); //insert timer here
@@ -313,12 +314,17 @@ function reset() {
 
     blocked = false;
 
-    //restart time and moves
+    //restart time, matches, moves, disaster count
     moves = 0;
+    counter = 0;
     sec = 0;
     min = 0;
-    //document.getElementById("timer").innerHTML = "time: 0 min 0 sec";
+    matches = 0;
+    disasterCount = 0;
+    gameover == false;
+ 
     clearInterval(Countup);
+    document.getElementById("timer").innerHTML = "0:00";
 }
 
 function victory(finalTime) {
@@ -329,6 +335,7 @@ function victory(finalTime) {
     let win = new BrowserWindow({ width: 800, height: 600, modal:true,  webPreferences:{nodeIntegration:true} })
     win.loadURL("file://" + __dirname + '/Victory.html?user=' + finalTime )
     //let newWin = window.open("Victory.html?user=" + finalTime , "Victory", "width=400,height=400");
+
 
 
 }
@@ -387,6 +394,7 @@ let dm = document.getElementById('drag');
 dm.addEventListener('dragstart',drag_start,false);
 document.body.addEventListener('dragover',drag_over,false);
 document.body.addEventListener('drop',drop,false);
+
 
 
 
