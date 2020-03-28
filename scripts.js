@@ -175,10 +175,60 @@ function flipCard()
 // Shuffle the board
 function randomize()
 {
-    deck.forEach(c => {
-        let ranPos = Math.floor(Math.random() * 12);
-        c.style.order = ranPos;
-    })
+    let elems = document.querySelectorAll(".memCard");
+    let w = "calc(15% - 10px)"; // Size of card width 25-10px
+    let h = "calc(15% - 10px)"; // Size of card length 33-10px
+    var arrX = 5; // x
+    var arrY = 5; // y
+    let xRatio = (100/arrX);
+    let yRatio = (100/arrY);
+
+    // Make the x*y array
+    var gameBoard = new Array(arrX);
+    for (i = 0; i < gameBoard.length; i++)
+    {
+        gameBoard[i] = new Array(arrY);
+    }
+
+    // Initialize all values to 0
+    for (i = 0; i < arrX; i++)
+    {
+        for (j = 0; j < arrY; j++)
+        {
+            gameBoard[i][j] = 0;
+        }
+    }
+
+    elems.forEach((elemnt) =>{
+        let y, x = 0;
+        let rows = getRandInt(arrX);
+        let columns = getRandInt(arrY);
+
+        while(gameBoard[columns][rows] === 1 || elems=== undefined)
+        {
+            rows = getRandInt(arrX);
+            columns = getRandInt(arrY);
+        }
+
+        gameBoard[columns][rows] = 1;
+
+        y = rows*yRatio
+        x = columns*xRatio;
+        var outX = "calc(";
+        outX +=x;
+        outX +="% - 0px)";
+
+        var outY = "calc(";
+        outY +=y;
+        outY +="% + 300px)";
+        elemnt.style.left = outX;
+        elemnt.style.top = outY;
+        elemnt.style.width = w;
+        elemnt.style.height = h;
+
+        console.log("left"+elemnt.style.left);
+        console.log("top"+elemnt.style.top);
+   })
 }
 
 // Add eventListener events to every card during initialization, and call flipCard() when clicked.
