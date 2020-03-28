@@ -5,7 +5,7 @@
 
     <title>LeaderBoard</title>
 
-    <link rel="stylesheet" href="./pref.css">
+    <link rel="stylesheet" href="./leader.css">
 </head>
 <body onload="singleScoreBoard(), multiScoreBoard()">
 <div id="main">
@@ -13,14 +13,16 @@
         <h2>Single-Player LeaderBoard </h2>
         <p id="single-player-score"></p>
     </div>
+    <div id="clear"></div>
     <div id="mutli">
         <h2>Multi-Player LeaderBoard </h2>
         <p id="multi-player-score"></p>
     </div>
+    <form class="form">
+        <button class="btn" type="button" id="btn" onclick="close_board()">Close Leaderboard</button>
+    </form>
 </div>
-<form class="form">
-    <button class="btn" type="button" id="btn" onclick="close_board()">Close Leaderboard</button>
-</form>
+
 </body>
 </html>
 

@@ -7,20 +7,6 @@ const path = require('path');
 
 const {app, BrowserWindow, Menu} = electron;
 
-// Storage for users score
-const storage = require('electron-json-storage');
-const defaultDataPath = storage.getDefaultDataPath()
-
-
-storage.set( 'UnoIceSharp', {score: 50}, function(error) {
-    if (error) throw error;
-});
-
-storage.getAll(function(error, data) {
-    if (error) throw error;
-    console.log(data);
-});
-
 
 let mainWindow;
 let prefWindow;
