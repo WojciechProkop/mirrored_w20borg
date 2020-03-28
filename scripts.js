@@ -1,43 +1,9 @@
 
 //scripts.js
 
-// Sound constructor
-/*
-Attribution licenses:
-https://creativecommons.org/licenses/by/3.0/
-flipCard sound obtained from:
-https://freesound.org/people/f4ngy/sounds/240776/
+let value=50;//global variable
 
-fireHazard sound obtained from:
-https://freesound.org/people/InspectorJ/sounds/484266/
-
-
-
-*/
-
-function sound(src)
-{
-   this.sound = document.createElement("audio");
-   this.sound.src = src;
-   this.sound.setAttribute("preload", "auto");
-   this.sound.setAttribute("controls", "none");
-   this.sound.style.display = "none";
-   document.body.appendChild(this.sound);
-   this.play = function(){
-       this.sound.play();
-   }
-   this.stop = function(){
-       this.sound.pause();
-   }
-}
-
-sFlipCard = new sound("flip_card.wav");
-sFireHazard = new sound("fireHazard.wav");
-sNameGenerate = new sound("nameGenerate.wav");
-sResetGame = new sound("resetGame.wav");
-
-
-var deck = document.querySelectorAll(".memCard");
+const deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
 const disasterDeck = [];
@@ -67,8 +33,7 @@ document.getElementById("reset").onclick = reset;
 function flipCard()
 {
     if(blocked)return;
-    sFlipCard.play();
-    //sFireHazard.play();
+
     //timer start on first move
     if (moves === 0){
         startTimer();
@@ -175,68 +140,12 @@ function flipCard()
     else {prevCard = this}
 }
 
-function getRandInt(max)
-{
-    return Math.floor(Math.random()*max);
-}
-
 // Shuffle the board
 function randomize()
 {
-    let elems = document.querySelectorAll(".memCard");
-    let w = "calc(15% - 10px)"; // Size of card width 25-10px
-    let h = "calc(15% - 10px)"; // Size of card length 33-10px
-    var arrX = 5; // x
-    var arrY = 5; // y
-    let xRatio = (100/arrX);
-    let yRatio = (100/arrY);
- 
-    // Make the x*y array
-    var gameBoard = new Array(arrX);
-    for (i = 0; i < gameBoard.length; i++)
-    {
-        gameBoard[i] = new Array(arrY);
-    }
-
-    // Initialize all values to 0
-    for (i = 0; i < arrX; i++)
-    {
-        for (j = 0; j < arrY; j++)
-        {
-            gameBoard[i][j] = 0;
-        }
-    }
-
-    elems.forEach((elemnt) =>{
-        let y, x = 0;
-        let rows = getRandInt(arrX);
-        let columns = getRandInt(arrY);
-
-        while(gameBoard[columns][rows] === 1 || elems=== undefined)
-        {
-            rows = getRandInt(arrX);
-            columns = getRandInt(arrY);
-        }
-
-        gameBoard[columns][rows] = 1;
-
-        y = rows*yRatio
-        x = columns*xRatio;
-        var outX = "calc(";
-        outX +=x;
-        outX +="% - 0px)";
-
-        var outY = "calc(";
-        outY +=y;
-        outY +="% + 300px)";
-        elemnt.style.left = outX;
-        elemnt.style.top = outY;
-        elemnt.style.width = w;
-        elemnt.style.height = h;
-
-        console.log("left"+elemnt.style.left);
-        console.log("top"+elemnt.style.top);
-        //console.log(c.style);
+    deck.forEach(c => {
+        let ranPos = Math.floor(Math.random() * 12);
+        c.style.order = ranPos;
     })
 }
 
@@ -264,41 +173,6 @@ function disasterCounter(disasterCount) {
 function getUsername() {
     // Once the user accepts the username save it in the file
     const storage = require('electron-json-storage');
-  
-const nameList = [
-    'Time', 'Past', 'Future', 'Dev',
-    'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
-    'Fall', 'Jump', 'Cliff', 'Mountain', 'Rend', 'Red', 'Blue',
-    'Green', 'Yellow', 'Gold', 'Demon', 'Demonic', 'Panda', 'Cat',
-    'Kitty', 'Kitten', 'Zero', 'Memory', 'Trooper', 'XX', 'Bandit',
-    'Fear', 'Light', 'Glow', 'Tread', 'Deep', 'Deeper', 'Deepest',
-    'Mine', 'Your', 'Worst', 'Enemy', 'Hostile', 'Force', 'Video',
-    'Game', 'Donkey', 'Mule', 'Colt', 'Cult', 'Cultist', 'Magnum',
-    'Gun', 'Assault', 'Recon', 'Trap', 'Trapper', 'Redeem', 'Code',
-    'Script', 'Writer', 'Near', 'Close', 'Open', 'Cube', 'Circle',
-    'Geo', 'Genome', 'Germ', 'Spaz', 'Shot', 'Echo', 'Beta', 'Alpha',
-    'Gamma', 'Omega', 'Seal', 'Squid', 'Money', 'Cash', 'Lord', 'King',
-    'Duke', 'Rest', 'Fire', 'Flame', 'Morrow', 'Break', 'Breaker', 'Numb',
-    'Ice', 'Cold', 'Rotten', 'Sick', 'Sickly', 'Janitor', 'Camel', 'Rooster',
-    'Sand', 'Desert', 'Dessert', 'Hurdle', 'Racer', 'Eraser', 'Erase', 'Big',
-    'Small', 'Short', 'Tall', 'Sith', 'Bounty', 'Hunter', 'Cracked', 'Broken',
-    'Sad', 'Happy', 'Joy', 'Joyful', 'Crimson', 'Destiny', 'Deceit', 'Lies',
-    'Lie', 'Honest', 'Destined', 'Bloxxer', 'Hawk', 'Eagle', 'Hawker', 'Walker',
-    'Zombie', 'Sarge', 'Capt', 'Captain', 'Punch', 'One', 'Two', 'Uno', 'Slice',
-    'Slash', 'Melt', 'Melted', 'Melting', 'Fell', 'Wolf', 'Hound',
-    'Legacy', 'Sharp', 'Dead', 'Mew', 'Chuckle', 'Bubba', 'Bubble', 'Sandwich', 'Smasher', 'Extreme', 'Multi',
-    'Universe', 'Ultimate', 'Death', 'Ready', 'Monkey', 'Elevator', 'Wrench', 'Grease', 'Head', 'Theme',
-    'Grand', 'Cool', 'Kid', 'Boy', 'Girl', 'Vortex', 'Paradox'
-];
-
-let finalName = "";
-
-
-function generate(){
-    document.getElementById("nameplace").innerHTML = randName();
-    sNameGenerate.play();
-
-}
 
     storage.keys(function(error, keys) {
         if (error) throw error;
@@ -339,7 +213,6 @@ function startTimer()
 // resets the game board
 function reset() {
     //if (flips > 0) return; // doesn't quite fix a mid-flip reset
-    sResetGame.play();
 
     // block while reseting
     blocked = true;
@@ -397,11 +270,41 @@ function mainmenu() {
     const remote = require('electron').remote;
     const { BrowserWindow } = require('electron').remote
 
-    let win = new BrowserWindow({ width: 800, height: 600, modal:true })
+    let win = new BrowserWindow({ width: 800, height: 600, modal:true, webPreferences:{nodeIntegration:true} })
+    win.loadURL("file://" + __dirname + '/mainWindow.html')
+
+}
+
+function prefWindow() {
+    const remote = require('electron').remote;
+    const { BrowserWindow } = require('electron').remote
+
+    let win = new BrowserWindow({ width: 800, height: 600, modal:true, webPreferences:{nodeIntegration:true} })
     win.loadURL("file://" + __dirname + '/prefs.html')
 
 }
 
+function drag_start(event) {
+    let style = window.getComputedStyle(event.target, null);
+    event.dataTransfer.setData("text/plain",
+        (parseInt(style.getPropertyValue("left"),10) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top"),10) - event.clientY));
+}
+function drag_over(event) {
+    event.preventDefault();
+    return false;
+}
+function drop(event) {
+    let offset = event.dataTransfer.getData("text/plain").split(',');
+    let dm = document.getElementById('drag');
+    dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+    dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+    event.preventDefault();
+    return false;
+}
+let dm = document.getElementById('drag');
+dm.addEventListener('dragstart',drag_start,false);
+document.body.addEventListener('dragover',drag_over,false);
+document.body.addEventListener('drop',drop,false);
 
 
 
