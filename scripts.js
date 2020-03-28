@@ -1,9 +1,41 @@
 
 //scripts.js
 
+// Sound constructor
+/*
+Attribution licenses:
+https://creativecommons.org/licenses/by/3.0/
+flipCard sound obtained from:
+https://freesound.org/people/f4ngy/sounds/240776/
 let value=50;//global variable
 
-const deck = document.querySelectorAll(".memCard");
+fireHazard sound obtained from:
+https://freesound.org/people/InspectorJ/sounds/484266/
+*/
+
+function sound(src)
+{
+   this.sound = document.createElement("audio");
+   this.sound.src = src;
+   this.sound.setAttribute("preload", "auto");
+   this.sound.setAttribute("controls", "none");
+   this.sound.style.display = "none";
+   document.body.appendChild(this.sound);
+   this.play = function(){
+       this.sound.play();
+   }
+   this.stop = function(){
+       this.sound.pause();
+   }
+}
+
+sFlipCard = new sound("flip_card.wav");
+sFireHazard = new sound("fireHazard.wav");
+sNameGenerate = new sound("nameGenerate.wav");
+sResetGame = new sound("resetGame.wav");
+
+
+var deck = document.querySelectorAll(".memCard");
 let prevCard = null;
 let flips = 0;
 const disasterDeck = [];
