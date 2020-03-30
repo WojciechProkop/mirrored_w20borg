@@ -6,38 +6,37 @@
     <meta charset="UTF-8">
     <title>Memory Game</title>
     <link rel="stylesheet" href="./app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body onload="getUsername()">
-<div id="header-area">
-    <div id="left-col">
+<section class="memGame">
+    <div class="center-screen" draggable="true" id="drag">
         <div id="timer-area">
-            <h2>Timer</h2>
             <h3 id="timer"></h3>
         </div>
-        <div id="username-area">
-            <h2 id="nameplace">Username Generator</h2>
-            <h3 id="matches"></h3>
-        </div>
-    </div>
-    <div id="middle-col">
-        <h1>SAVE THE CITY</h1>
-        <div id="form">
-            <button class="btn" type="button" id="reset" onclick="reset()">Reset Game</button>
-            <button class="btn" type="button" id="leaderboard" onclick="loadleaderboard()">View Leader board</button>
-            <button class="btn" type="button" id="main" onclick="mainmenu()">View Main Menu</button>
-        </div>
-    </div>
-    <div id="right-col">
         <div id="disaster-area">
-            <h2>Disasters</h2>
             <h3 id="disasters"></h3>
         </div>
+        <div id="form">
+            <button class="btn" type="button" id="main" onclick="mainmenu()"><i class="fa fa-home"></i></button>
+            <button class="btn" type="button" id="reset" onclick="reset()"><i class="fa fa-refresh"></i></button>
+        </div>
+        <div id="clear">
+        <h2>Click and drag me</h2>
+        </div>
     </div>
+<<<<<<< HEAD
 </div>
 
 <div id="clear"></div>
 <section class="memGame">
 
+=======
+    <div class="memCard" data-name="hospital" data-isset="false">
+        <img class="cardFront" src="./img/svg/hospital.svg" alt="Front1"/>
+        <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">
+    </div>
+>>>>>>> 970bf9f19e4748e6cd1bd3ff7ef5dc44070242ed
     <div class="memCard"  data-name="fire" data-isset="false">
         <img class="cardFront" src="./img/svg/fire.svg" alt="Front1"/>
         <img class="cardBack" src="./img/svg/030-plankton.svg" alt="Back">

@@ -15,149 +15,153 @@ body {
     color: white;
 
 }
+
+
 .header-area{
     float: left;
     width:100%;
 }
 
-#left-col{
-    float:left;
-    width: 20%;
-}
-#middle-col{
-    float:left;
-    width: 60%;
-    text-align: center;
-}
-#right-col{
-    float:left;
-    width: 20%;
-}
 #clear{
     float: left;
     width: 100%;
     clear: both;
 }
-#left-col #timer-area{
-    background-color: aqua;
+.center-screen #timer-area{
+    float: left;
+    width: 50%;
+    background-color: #5CBDC9;
     padding: 5%;
     text-align: center;
-}
-#left-col #username-area{
-    background-color: whitesmoke;
-    padding: 5%;
-    text-align: center;
+    min-height: 12vh;
 }
 
-#left-col #username-area h2{
+.center-screen #disaster-area {
+    float: left;
+    width: 50%;
+    background-color: crimson;
+    padding: 5%;
+    text-align: center;
+    min-height: 12vh;
+}
+
+.center-screen #username-area{
+    float: left;
+    text-align: center;
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 5%;
+}
+
+.center-screen #username-area h2{
     text-align: center;
     color: darkorange;
-    font-family: "Avenir Next Condensed";
+    font-family: "Arial Narrow";
     font-weight: 300;
     font-size: 2vh;
 }
 
-#left-col #timer-area h2{
+.center-screen #timer-area h2{
     text-align: center;
     color: aliceblue;
-    font-family: "Avenir Next Condensed";
+    font-family: "Arial Narrow";
     font-size: 4vh;
 }
 
-#left-col #timer-area h3{
+.center-screen #timer-area h3{
     color: aliceblue;
-    font-family: "Avenir Next Condensed";
+    font-family: "Arial Narrow";
     font-size: 7vh;
 }
 
-#right-col #disaster-area {
-    background-color: crimson;
+.center-screen #clear{
     padding: 5%;
-    text-align: center;
 }
 
-#right-col #disaster-area h2{
+.center-screen h2{
+    text-align: center;
+    color: black;
+    font-family: "Arial Narrow";
+    font-size: 2vh;
+}
+
+.center-screen #disaster-area h2{
     text-align: center;
     color: aliceblue;
-    font-family: "Avenir Next Condensed";
-    font-size: 4vh;
+    font-family: "Arial Narrow";
+    font-size: 2vh;
 }
-#right-col #disaster-area h3{
+.center-screen #disaster-area h3{
     color: aliceblue;
-    font-family: "Avenir Next Condensed";
+    font-family: "Arial Narrow";
     font-size: 7vh;
 }
 
 
-#middle-col h1{
-    color: aliceblue;
-    font-family: "Avenir Next Condensed";
-    font-size: 8vh;
-}
-
-#middle-col #form .btn{
-    float:none;
-    margin-right: auto;
-    margin-left: auto;
+.center-screen {
+    width:30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: ghostwhite;
+    z-index: 1;
 }
 
 /*How big the screen should be*/
 .memGame{
+    position: relative;
     width: 90vw;
     height: 90vh;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     perspective: 1000px;
+
 }
 
-#header{
-    float:left;
-    width: 100%;
-    padding: 20px;
+/*Set card proportions relative to screen, and set flip timer to both
+faces. Otherwise, flipping to front has transform time, flipping to back
+is instant*/
+.memCard{
+    width: calc(25% - 10px);
+    height: calc(33.333% - 10px);
+    margin: 5px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(226, 4, 4, 0.3);
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
 }
 
-#header h1{
-    text-align: center;
-    color: aliceblue;
-    font-family: "Avenir Next Condensed";
-    font-size: 5vh;
-}
-
-#header h2{
-    text-align: center;
-    color: aliceblue;
-    font-family: Avenir;
-}
-
-#header h3{
-    text-align: center;
-    color: palevioletred;
-    font-family: Avenir;
+#form{
+    padding: 5%;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
 /* Basic Button Style */
    .btn {
+       float: left;
+       align-items: center;
+       padding: 5% 5% 0% 5%;
+       justify-content: center;
+       width:50%;
        box-sizing: border-box;
+       border: none;
        appearance: none;
        background-color: transparent;
-       border: 2px solid aqua;
-       border-radius: 0.6em;
-       color: aqua;
+       color: black;
        cursor: pointer;
        display: flex;
        align-self: center;
-       font-size: 3vh;
+       font-size: 6vh;
        font-weight: 400;
-       line-height: 1;
-       margin: 20px;
-       padding: 1.2em 2.8em;
-       text-decoration: none;
-       text-align: center;
-       text-transform: uppercase;
-       font-family: 'Avenir', sans-serif;
-       font-weight: 700;}
+       line-height: 1;}
+
 
 .btn-username {
     box-sizing: border-box;
@@ -169,7 +173,7 @@ body {
     cursor: pointer;
     display: flex;
     align-self: center;
-    font-size: 2vh;
+    font-size: 7vh;
     font-weight: 100;
     line-height: 1;
     margin: 20px;
@@ -177,28 +181,8 @@ body {
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
-    font-family: 'Avenir', sans-serif;
+    font-family: "Arial Narrow";
     font-weight: 700;}
-
-#header #form .btn{
-    float:none;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-/*Set card proportions relative to screen, and set flip timer to both
-faces. Otherwise, flipping to front has transform time, flipping to back
-is instant*/
-.memCard{
-    /*width: calc(25% - 10px);
-    height: calc(33.333% - 10px);*/
-    margin: 5px;
-    position: absolute;
-    box-shadow: 1px 1px 1px rgba(226, 4, 4, 0.3);
-    transform: scale(1);
-    transform-style: preserve-3d;
-    transition: transform 0.4s;
-}
 
 
 
@@ -228,3 +212,5 @@ scripts.js*/
 .memCard.flip{
     transform: rotateY(180deg);
   }
+
+
