@@ -16,6 +16,18 @@ body {
 
 }
 
+#disaster-bar {
+    float: left;
+    width: 100%;
+    background-color: #ddd;
+}
+
+#fill-bar {
+    width: 1%;
+    height: 30px;
+    background-color: crimson;
+}
+
 
 .header-area{
     float: left;

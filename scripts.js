@@ -84,6 +84,7 @@ function flipCard()
         console.log(disasterDeck);
         this.removeEventListener('click', flipCard);
         disasterCount ++;
+        increase_disaster();
         disasterCounter(disasterCount);
 
     }
@@ -95,6 +96,7 @@ function flipCard()
                 this.classList.toggle('flip');
                 this.removeEventListener('click', flipCard);
                 disasterCount --;
+                decrease_disaster();
                 disasterCounter(disasterCount);
                 disasterDeck.pop();
                 console.log(disasterDeck);
@@ -394,6 +396,19 @@ let dm = document.getElementById('drag');
 dm.addEventListener('dragstart',drag_start,false);
 document.body.addEventListener('dragover',drag_over,false);
 document.body.addEventListener('drop',drop,false);
+
+
+function increase_disaster() {
+    let elem = document.getElementById("fill-bar");
+    width+=20;
+    elem.style.width = width + "%";
+}
+
+function decrease_disaster() {
+let elem = document.getElementById("fill-bar");
+width-=20;
+elem.style.width = width + "%";
+}
 
 
 
