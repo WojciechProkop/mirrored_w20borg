@@ -87,7 +87,8 @@ function flipCard() {
         this.classList.toggle('flip');
         disasterDeck.push(this.dataset.name);
         this.removeEventListener('click', flipCard);
-        disasterCount++;
+        disasterCount ++;
+        increase_disaster();
         disasterCounter(disasterCount);
 
     }
@@ -98,7 +99,8 @@ function flipCard() {
         for (i = 0; i < disasterDeck.length; i++) {
             if (disasterDeck[i] === 'fire') {
                 this.removeEventListener('click', flipCard);
-                disasterCount--;
+                disasterCount --;
+                decrease_disaster();
                 disasterCounter(disasterCount);
                 disasterDeck.pop();
                 flips = 2;
@@ -444,6 +446,20 @@ document.body.addEventListener('drop', drop, false);
 function checkOverlap(card_elem) {
     var domMenu;
     var domCard;
+  
+function increase_disaster() {
+    let elem = document.getElementById("fill-bar");
+    width+=20;
+    elem.style.width = width + "%";
+}
+
+function decrease_disaster() {
+let elem = document.getElementById("fill-bar");
+width-=20;
+elem.style.width = width + "%";
+}
+
+
 
     if (card_elem.style.left != undefined) {
 
